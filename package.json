@@ -1,0 +1,42 @@
+{
+  "name": "bharatverse",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "BharatVerse - a cinematic, liquid-glass journey across the 29 states of India",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
+    "d3-geo": "^3.1.1",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^1.61.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.18.4",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.0",
+    "@types/geojson": "^7946.0.16",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@types/three": "^0.186.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.21",
+    "polygon-clipping": "^0.15.7",
+    "postcss": "^8.5.6",
+    "puppeteer-core": "^25.15.0",
+    "tailwindcss": "^3.4.17",
+    "topojson-client": "^3.1.0",
+    "topojson-server": "^3.0.1",
+    "topojson-simplify": "^3.0.3",
+    "typescript": "~5.8.3",
+    "vite": "^7.1.3"
+  }
+}

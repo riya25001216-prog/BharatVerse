@@ -1,0 +1,371 @@
+{
+  "gateway-of-india": {
+    "slug": "gateway-of-india",
+    "title": "Pano-20230403-Gateway-of-India.jpg",
+    "credit": "Fuzheado",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3APano-20230403-Gateway-of-India.jpg",
+    "width": 6528,
+    "height": 3264
+  },
+  "mehrangarh-fort": {
+    "slug": "mehrangarh-fort",
+    "title": "Mehrangarh Fort (25017238857).jpg",
+    "credit": "Ashwin Kumar from Bangalore, India",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMehrangarh%20Fort%20(25017238857).jpg",
+    "width": 5472,
+    "height": 2736
+  },
+  "hemis-monastery": {
+    "slug": "hemis-monastery",
+    "title": "Hemis Monastery 360 Degree View.jpg",
+    "credit": "Aman Gujar",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AHemis%20Monastery%20360%20Degree%20View.jpg",
+    "width": 6912,
+    "height": 3456
+  },
+  "victoria-memorial": {
+    "slug": "victoria-memorial",
+    "title": "Central Hall - Ground Floor - Currency Building - 360x180 Degree Equirectangular View - Dalhousie Square - Kolkata 2016-06-02 4184-4194.tif",
+    "credit": "Biswarup Ganguly",
+    "license": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ACentral%20Hall%20-%20Ground%20Floor%20-%20Currency%20Building%20-%20360x180%20Degree%20Equirectangular%20View%20-%20Dalhousie%20Square%20-%20Kolkata%202016-06-02%204184-4194.tif",
+    "width": 12300,
+    "height": 6150
+  },
+  "ooty-ithalar": {
+    "slug": "ooty-ithalar",
+    "title": "360 Panorama - Aerial view of Sunrise from Ithalar village, Ooty.jpg",
+    "credit": "iMahesh",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3A360%20Panorama%20-%20Aerial%20view%20of%20Sunrise%20from%20Ithalar%20village%2C%20Ooty.jpg",
+    "width": 8000,
+    "height": 4000
+  },
+  "hyderabad-lake": {
+    "slug": "hyderabad-lake",
+    "title": "Aerial view of Hyderabad around Malkam cheruvu (360 panorama).jpg",
+    "credit": "iMahesh",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AAerial%20view%20of%20Hyderabad%20around%20Malkam%20cheruvu%20(360%20panorama).jpg",
+    "width": 12000,
+    "height": 6000
+  },
+  "bengaluru-bellandur": {
+    "slug": "bengaluru-bellandur",
+    "title": "360° view of Bellandur lake from Kempapura bridge.jpg",
+    "credit": "Subhashish Panigrahi",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3A360%C2%B0%20view%20of%20Bellandur%20lake%20from%20Kempapura%20bridge.jpg",
+    "width": 3584,
+    "height": 1792
+  },
+  "varanasi-ghats": {
+    "slug": "varanasi-ghats",
+    "title": "Mapillary (skysign) 2026-02-18 03H44M09S758 (1328477409325020 at HKDsNAl2bxTtPujqrQ1Vef).jpg",
+    "credit": "skysign",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMapillary%20(skysign)%202026-02-18%2003H44M09S758%20(1328477409325020%20at%20HKDsNAl2bxTtPujqrQ1Vef).jpg",
+    "width": 5760,
+    "height": 2880
+  },
+  "jagannath-puri": {
+    "slug": "jagannath-puri",
+    "title": "360 degree view of Gangeswari Temple, Bayalisabati.jpg",
+    "credit": "Prateek Pattanaik",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3A360%20degree%20view%20of%20Gangeswari%20Temple%2C%20Bayalisabati.jpg",
+    "width": 4608,
+    "height": 2304
+  },
+  "jaisalmer-fort": {
+    "slug": "jaisalmer-fort",
+    "title": "Nathmal Ji ki Haveli.jpg",
+    "credit": "Ashwin Kumar",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ANathmal%20Ji%20ki%20Haveli.jpg",
+    "width": 5472,
+    "height": 2736
+  },
+  "diu-fort": {
+    "slug": "diu-fort",
+    "title": "Mapillary (osmplus org) 2026-04-06 10H40M13S375 (2018273242433829 at U5eoncryYtSF2QAlDIuEwg).jpg",
+    "credit": "osmplus_org",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMapillary%20(osmplus%20org)%202026-04-06%2010H40M13S375%20(2018273242433829%20at%20U5eoncryYtSF2QAlDIuEwg).jpg",
+    "width": 7680,
+    "height": 3840
+  },
+  "taj-mahal": {
+    "slug": "taj-mahal",
+    "title": "Panorama of Taj Mahal - Agra - Uttar Pradesh - India - 01 (12650683744).jpg",
+    "credit": "Adam Jones from Kelowna, BC, Canada",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3APanorama%20of%20Taj%20Mahal%20-%20Agra%20-%20Uttar%20Pradesh%20-%20India%20-%2001%20(12650683744).jpg",
+    "width": 2252,
+    "height": 1077,
+    "equirectangular": true
+  },
+  "hawa-mahal": {
+    "slug": "hawa-mahal",
+    "title": "Hawa Mahal in Jaipur in 2016 01.jpg",
+    "credit": "Thomas Fuhrmann",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AHawa%20Mahal%20in%20Jaipur%20in%202016%2001.jpg",
+    "width": 10913,
+    "height": 5550,
+    "equirectangular": true
+  },
+  "amber-fort": {
+    "slug": "amber-fort",
+    "title": "Panorama of Amber Fort.jpg",
+    "credit": "Slyronit",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3APanorama%20of%20Amber%20Fort.jpg",
+    "width": 5879,
+    "height": 2674,
+    "equirectangular": false
+  },
+  "konark": {
+    "slug": "konark",
+    "title": "Sun Temple - Konark - Odisha - Panorama.jpg",
+    "credit": "রবিরশ্মি রায়",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ASun%20Temple%20-%20Konark%20-%20Odisha%20-%20Panorama.jpg",
+    "width": 10025,
+    "height": 4190,
+    "equirectangular": false
+  },
+  "hampi": {
+    "slug": "hampi",
+    "title": "Elephant Stables in Hampi.jpg",
+    "credit": "aakashlohia",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AElephant%20Stables%20in%20Hampi.jpg",
+    "width": 6346,
+    "height": 3746,
+    "equirectangular": false
+  },
+  "golden-temple": {
+    "slug": "golden-temple",
+    "title": "Golden Temple Amritsar Panorama.jpg",
+    "credit": "Benison P Baby",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AGolden%20Temple%20Amritsar%20Panorama.jpg",
+    "width": 7355,
+    "height": 2843,
+    "equirectangular": false
+  },
+  "dal-lake": {
+    "slug": "dal-lake",
+    "title": "Dal Lake Panorama 2.png",
+    "credit": "Ayon Tarafdar",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ADal%20Lake%20Panorama%202.png",
+    "width": 4608,
+    "height": 2352,
+    "equirectangular": true
+  },
+  "red-fort": {
+    "slug": "red-fort",
+    "title": "Red Fort Front.jpg",
+    "credit": "Ayushjainr",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARed%20Fort%20Front.jpg",
+    "width": 4608,
+    "height": 1726,
+    "equirectangular": false
+  },
+  "qutub-minar": {
+    "slug": "qutub-minar",
+    "title": "Qutub Minar Complex Inside Panorama.jpg",
+    "credit": "Samthe030601",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AQutub%20Minar%20Complex%20Inside%20Panorama.jpg",
+    "width": 8000,
+    "height": 4000,
+    "equirectangular": true
+  },
+  "fatehpur-sikri": {
+    "slug": "fatehpur-sikri",
+    "title": "Fatehpur Sikri, panorámica (2002).jpg",
+    "credit": "LBM1948",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AFatehpur%20Sikri%2C%20panor%C3%A1mica%20(2002).jpg",
+    "width": 2578,
+    "height": 1032,
+    "equirectangular": false
+  },
+  "meenakshi-temple": {
+    "slug": "meenakshi-temple",
+    "title": "Dawn Madurai.jpg",
+    "credit": "எஸ்ஸார்",
+    "license": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ADawn%20Madurai.jpg",
+    "width": 3872,
+    "height": 1289,
+    "equirectangular": false
+  },
+  "cellular-jail": {
+    "slug": "cellular-jail",
+    "title": "Port Blair views vrvbaan042k24 (763).jpg",
+    "credit": "Vinayaraj",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3APort%20Blair%20views%20vrvbaan042k24%20(763).jpg",
+    "width": 4032,
+    "height": 2256,
+    "equirectangular": false
+  },
+  "rann-of-kutch": {
+    "slug": "rann-of-kutch",
+    "title": "Rann utsav 01.jpg",
+    "credit": "Mekshaa",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARann%20utsav%2001.jpg",
+    "width": 4032,
+    "height": 2268,
+    "equirectangular": false
+  },
+  "mysore-palace": {
+    "slug": "mysore-palace",
+    "title": "Mysore palace panorama (6).jpg",
+    "credit": "Ssriram mt",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMysore%20palace%20panorama%20(6).jpg",
+    "width": 8935,
+    "height": 4531,
+    "equirectangular": true
+  },
+  "marina-beach": {
+    "slug": "marina-beach",
+    "title": "VGP1 South Uthandi Beach Chennai Aug21 D72 20729.jpg",
+    "credit": "This Photo was taken by Timothy A. Gonsalves. Feel free to use my photos, but please mention me as the author. I would m",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AVGP1%20South%20Uthandi%20Beach%20Chennai%20Aug21%20D72%2020729.jpg",
+    "width": 5115,
+    "height": 2877,
+    "equirectangular": false
+  },
+  "kedarnath": {
+    "slug": "kedarnath",
+    "title": "Panorama Kedarnath Uttarakhand.jpg",
+    "credit": "Surendra 1999",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3APanorama%20Kedarnath%20Uttarakhand.jpg",
+    "width": 7590,
+    "height": 3844,
+    "equirectangular": true
+  },
+  "pangong-lake": {
+    "slug": "pangong-lake",
+    "title": "Panoramic view of Pnagong lake, Pangong Tso, view form Pangong Lake Rd, 194201.jpg",
+    "credit": "Krzysztof Popławski",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3APanoramic%20view%20of%20Pnagong%20lake%2C%20Pangong%20Tso%2C%20view%20form%20Pangong%20Lake%20Rd%2C%20194201.jpg",
+    "width": 11894,
+    "height": 3848,
+    "equirectangular": false
+  },
+  "khajuraho": {
+    "slug": "khajuraho",
+    "title": "20120303 zoophilia Lakshmana Temple Khajuraho India (panoramic version).jpg",
+    "credit": "User:Ggia",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3A20120303%20zoophilia%20Lakshmana%20Temple%20Khajuraho%20India%20(panoramic%20version).jpg",
+    "width": 4204,
+    "height": 2278,
+    "equirectangular": false
+  },
+  "rani-ki-vav": {
+    "slug": "rani-ki-vav",
+    "title": "Rani Ki Vav patan WLM22-02879.jpg",
+    "credit": "Schwiki",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARani%20Ki%20Vav%20patan%20WLM22-02879.jpg",
+    "width": 6000,
+    "height": 3376,
+    "equirectangular": false
+  },
+  "sivasagar": {
+    "slug": "sivasagar",
+    "title": "A part of Kareng Ghor- Ahom Raja's Palace, Garhgaon, Sivasagar, Assam.jpg",
+    "credit": "Joli Rumi",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AA%20part%20of%20Kareng%20Ghor-%20Ahom%20Raja's%20Palace%2C%20Garhgaon%2C%20Sivasagar%2C%20Assam.jpg",
+    "width": 4032,
+    "height": 2268,
+    "equirectangular": false
+  },
+  "shore-temple": {
+    "slug": "shore-temple",
+    "title": "Kaldan Samudhra Mahabalipuram Sep22 A7C 02463.jpg",
+    "credit": "This Photo was taken by Timothy A. Gonsalves. Feel free to use my photos, but please mention me as the author. I would m",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AKaldan%20Samudhra%20Mahabalipuram%20Sep22%20A7C%2002463.jpg",
+    "width": 5948,
+    "height": 3346,
+    "equirectangular": false
+  },
+  "sun-temple-konark": {
+    "slug": "sun-temple-konark",
+    "title": "Konark sun temple a wheel of temple.jpg",
+    "credit": "Anurag choubisa",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AKonark%20sun%20temple%20a%20wheel%20of%20temple.jpg",
+    "width": 2592,
+    "height": 1456,
+    "equirectangular": false
+  },
+  "sundarban": {
+    "slug": "sundarban",
+    "title": "Sundarban Kristi Mela O Loko Sanskriti Utsab - 360x180 Degree Equirectangular View - Narayantala - South 24 Parganas - 2015-12-23 7656-7668.tif",
+    "credit": "Biswarup Ganguly",
+    "license": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ASundarban%20Kristi%20Mela%20O%20Loko%20Sanskriti%20Utsab%20-%20360x180%20Degree%20Equirectangular%20View%20-%20Narayantala%20-%20South%2024%20Parganas%20-%202015-12-23%207656-7668.tif",
+    "width": 10328,
+    "height": 5164,
+    "equirectangular": true
+  },
+  "temple-south": {
+    "slug": "temple-south",
+    "title": "The side view of the tanjore temple.jpg",
+    "credit": "Gnanasekaranpdy",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AThe%20side%20view%20of%20the%20tanjore%20temple.jpg",
+    "width": 4608,
+    "height": 2592,
+    "equirectangular": false
+  },
+  "leh-palace": {
+    "slug": "leh-palace",
+    "title": "Leh Town.jpg",
+    "credit": "Arkadeepmeta",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3ALeh%20Town.jpg",
+    "width": 4608,
+    "height": 2592,
+    "equirectangular": false
+  },
+  "spiti-village": {
+    "slug": "spiti-village",
+    "title": "Keylong West Lahaul Himachal Oct22 A7C 03375 panorama.jpg",
+    "credit": "This Photo was taken by Timothy A. Gonsalves. Feel free to use my photos, but please mention me as the author. I would m",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AKeylong%20West%20Lahaul%20Himachal%20Oct22%20A7C%2003375%20panorama.jpg",
+    "width": 5624,
+    "height": 2812,
+    "equirectangular": true
+  },
+  "ghat-varanasi": {
+    "slug": "ghat-varanasi",
+    "title": "Morning Aarti at Assi Ghat, Varanasi 10.jpg",
+    "credit": "Rangan Datta Wiki",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMorning%20Aarti%20at%20Assi%20Ghat%2C%20Varanasi%2010.jpg",
+    "width": 4429,
+    "height": 2239,
+    "equirectangular": true
+  }
+}

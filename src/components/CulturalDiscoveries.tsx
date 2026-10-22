@@ -1,0 +1,200 @@
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { SectionHeading } from './Atmosphere';
+
+export interface Discovery {
+  id: string;
+  category: string;
+  title: string;
+  image: string;
+  blurb: string;
+  details: string[];
+  guideQuestion: string;
+}
+
+const DISCOVERIES: Discovery[] = [
+  {
+    id: 'attire',
+    category: 'Traditional Attire',
+    title: 'Silk, cotton and the language of cloth',
+    image: 'gujarat',
+    blurb:
+      'From Kanjeevaram silks to Phulkari embroidery, Indian dress is geometry, memory and weather folded into cloth.',
+    details: [
+      'Kanjeevaram silks from Kanchipuram are woven on handlooms with temple-inspired motifs, while Gujarati Bandhani tie-dye turns a single sari into a pattern of dots.',
+      'Punjabi Phulkari embroidery carries geometric stories across the dupatta, and the Himalayan phol is woven from local sheep wool.',
+      'Traditional attire is still worn daily, not as costume: the five-yard drape of the south, the shawl of the north, the lungi of the coast.',
+    ],
+    guideQuestion: 'Tell me about the traditional attire of Gujarat',
+  },
+  {
+    id: 'food',
+    category: 'Famous Food',
+    title: 'The thali as a universe',
+    image: 'kerala',
+    blurb:
+      'A thali is not a meal, it is a map of a region: rice, bread, five fats, five pickles, one story of spice.',
+    details: [
+      'The Kerala sadhya pairs rice with avial, thoran, payasam and papadum; the Gujarati thali is the classic sweet-spicy-sour balance; the Rajasthani thali carries dal baati churma.',
+      'Every region argues about the correct number of items on the thali, and every argument is delicious.',
+      'Street food is the thali of the cities: pani puri, dosa, kathi rolls, momos and pav bhaji.',
+    ],
+    guideQuestion: 'Food in Kerala',
+  },
+  {
+    id: 'craft',
+    category: 'Art and Craft',
+    title: 'Hands that kept the old knowledge',
+    image: 'andhra-pradesh',
+    blurb:
+      'Kalamkari, Pichwadi, Talaweka and the thousand village crafts that survive only because someone kept weaving.',
+    details: [
+      'Kalamkari from Srikakulam paints temple cloth with natural dyes and stories from the Ramayana.',
+      'Pichwadi in Andhra is hand-woven on narrow looms into geometric temple walls.',
+      'Bidriware and Dhokra metal craft turn clay and lost-wax into ritual objects.',
+    ],
+    guideQuestion: 'Craft of Andhra Pradesh',
+  },
+  {
+    id: 'festivals',
+    category: 'Traditions and Festivals',
+    title: 'Festivals as weather systems',
+    image: 'west-bengal',
+    blurb:
+      'Durga Puja, Onam, Diwali, Hornbill: festival calendars that move the weather, the markets and the hearts of millions.',
+    details: [
+      'Durga Puja in Bengal turns whole neighbourhoods into temporary temples of clay, light and sound.',
+      'Onam in Kerala is a harvest festival of flower carpets, boats and the twenty-course sadya.',
+      'Hornbill in Nagaland is a ten-day state festival of dance, masks and heritage.',
+    ],
+    guideQuestion: 'Festivals in Assam',
+  },
+  {
+    id: 'hidden',
+    category: 'Hidden Place',
+    title: 'Rani ki Vav, the stepwell that is a universe underground',
+    image: 'gujarat',
+    blurb:
+      'A seventh-century stepwell carved downward into the earth, where five storeys of steps meet the water.',
+    details: [
+      'Rani ki Vav in Patan is a UNESCO World Heritage Site and a inverted temple built for the queen who never used it.',
+      'The stepwells were engineering, not decoration: they stored monsoon water for a thirsty city.',
+      'The hidden places of India are usually the ones with no ticket queue: village temples, island beaches, desert salt flats.',
+    ],
+    guideQuestion: 'Tell me about the hidden places of Gujarat',
+  },
+];
+
+export function CulturalDiscoveries({ onHear }: { onHear: (question: string) => void }) {
+  const [openId, setOpenId] = useState<string | null>(null);
+  const open = DISCOVERIES.find((d) => d.id === openId) ?? null;
+
+  return (
+    <section id="discoveries" className="relative scroll-mt-24 py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <SectionHeading
+          kicker="Five doors"
+          title="Five ways India"
+          highlight="keeps its soul"
+          description="Traditional attire, food, craft, festivals and the hidden places that rarely make the postcards but carry the deepest history."
+        />
+
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {DISCOVERIES.map((d, i) => (
+            <motion.button
+              key={d.id}
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: Math.min(i * 0.08, 0.35) }}
+              onClick={() => setOpenId(d.id)}
+              className="glass card-hover group relative h-full overflow-hidden rounded-[26px] text-left"
+            >
+              <div className="relative h-52 overflow-hidden">
+                <img
+                  src={'/images/' + d.image + '.jpg'}
+                  alt={d.category}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/45 to-transparent" />
+                <div className="absolute inset-x-0 top-0 p-4">
+                  <span className="rounded-full border border-white/20 bg-ink-950/55 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-white/75 backdrop-blur-md">
+                    {d.category}
+                  </span>
+                </div>
+              </div>
+              <div className="p-5">
+                <h3 className="font-display text-xl font-light leading-snug text-white">{d.title}</h3>
+                <p className="mt-2.5 text-[13px] leading-relaxed text-white/55">{d.blurb}</p>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpenId(null)}
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-950/85 p-4 backdrop-blur-md"
+          >
+            <motion.article
+              initial={{ opacity: 0, y: 40, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 24, scale: 0.98 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="glass max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-[30px]"
+            >
+              <div className="relative h-56">
+                <img
+                  src={'/images/' + open.image + '.jpg'}
+                  alt={open.category}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
+                <button
+                  onClick={() => setOpenId(null)}
+                  className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-ink-950/60 text-white/80 backdrop-blur-md transition-colors hover:text-white"
+                  aria-label="Close"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
+                  </svg>
+                </button>
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-saffron-300/85">{open.category}</div>
+                  <h2 className="mt-2 font-display text-3xl font-light leading-tight text-white">{open.title}</h2>
+                </div>
+              </div>
+              <div className="p-6 sm:p-8">
+                <p className="text-[15px] italic leading-relaxed text-white/70">{open.blurb}</p>
+                <div className="divider-glow my-6" />
+                <div className="space-y-3">
+                  {open.details.map((d) => (
+                    <p key={d} className="text-[14px] leading-relaxed text-white/72">{d}</p>
+                  ))}
+                </div>
+                <div className="mt-8 flex flex-wrap gap-2.5">
+                  <button
+                    onClick={() => {
+                      setOpenId(null);
+                      onHear(open.guideQuestion);
+                    }}
+                    className="sheen rounded-full bg-[linear-gradient(90deg,#ffc46b,#f98a09)] px-5 py-2.5 text-[13px] font-semibold text-ink-950 transition-transform hover:scale-[1.03]"
+                  >
+                    Hear it from the guide
+                  </button>
+                </div>
+              </div>
+            </motion.article>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </section>
+  );
+}
