@@ -9,6 +9,7 @@ import { GuidePage } from './pages/GuidePage';
 import { StoriesPage } from './pages/StoriesPage';
 import { DestinationsPage } from './pages/DestinationsPage';
 import { PlanPage } from './pages/PlanPage';
+import { RidgeHeroPage } from './pages/RidgeHeroPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { LanguageProvider } from './lib/i18n';
 
@@ -31,6 +32,7 @@ const router = createHashRouter([
           { path: '/guide', element: <GuidePage /> },
           { path: '/stories', element: <StoriesPage /> },
           { path: '/plan', element: <PlanPage /> },
+          { path: '/ridge-ai', element: <RidgeHeroPage /> },
           { path: '*', element: <NotFoundPage /> },
         ],
       },
