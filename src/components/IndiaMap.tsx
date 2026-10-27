@@ -140,7 +140,7 @@ export function IndiaMap({ selectedId, onSelect, regionFilter, query, compact = 
     const story = STATE_BY_ID[id];
     if (!story) return 'rgba(255,255,255,0.07)';
     if (selectedId === id) return story.accent;
-    if (matched && matched.has(id)) return 'rgba(255,196,107,0.6)';
+    if (matched && matched.has(id)) return 'rgba(246, 196, 111,0.6)';
     return REGION_COLORS[story.region] ?? 'rgba(255,255,255,0.07)';
   };
 
@@ -229,7 +229,7 @@ export function IndiaMap({ selectedId, onSelect, regionFilter, query, compact = 
           style={{
             transition: 'fill 320ms ease, fill-opacity 320ms ease, stroke 220ms ease, stroke-width 220ms ease',
             filter: isSelected
-              ? 'drop-shadow(0 0 16px rgba(255,196,107,0.65))'
+              ? 'drop-shadow(0 0 16px rgba(246, 196, 111,0.65))'
               : isHovered
                 ? 'drop-shadow(0 0 10px rgba(255,255,255,0.35))'
                 : undefined,
@@ -271,8 +271,8 @@ export function IndiaMap({ selectedId, onSelect, regionFilter, query, compact = 
             <stop offset="100%" stopColor="rgba(99,102,241,0)" />
           </radialGradient>
           <radialGradient id="globeInner" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(255,196,107,0.10)" />
-            <stop offset="100%" stopColor="rgba(255,196,107,0)" />
+            <stop offset="0%" stopColor="rgba(246, 196, 111,0.10)" />
+            <stop offset="100%" stopColor="rgba(246, 196, 111,0)" />
           </radialGradient>
           <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur stdDeviation="7" />
@@ -336,11 +336,11 @@ export function IndiaMap({ selectedId, onSelect, regionFilter, query, compact = 
       {/* hover tooltip */}
       {hoverStory && pointer ? (
         <div
-          className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-[130%] whitespace-nowrap rounded-xl border border-white/20 bg-ink-900/90 px-3 py-1.5 text-xs font-medium text-white shadow-glass backdrop-blur-md"
+          className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-[130%] whitespace-nowrap rounded-xl border border-parchment-200/20 bg-ink-900/90 px-3 py-1.5 text-xs font-medium text-parchment-100 shadow-glass backdrop-blur-md"
           style={{ left: pointer.x, top: pointer.y }}
         >
           {hoverStory.name}
-          <span className="ml-2 text-[10px] uppercase tracking-wider text-white/45">
+          <span className="ml-2 text-[12px] tracking-wider text-parchment-200/50">
             {hoverStory.region}
           </span>
         </div>
@@ -348,10 +348,10 @@ export function IndiaMap({ selectedId, onSelect, regionFilter, query, compact = 
 
       {/* controls */}
       <div className="pointer-events-none absolute right-3 top-3 flex flex-col gap-2">
-        <div className="pointer-events-auto flex flex-col overflow-hidden rounded-xl border border-white/15 bg-ink-900/70 backdrop-blur-md">
+        <div className="pointer-events-auto flex flex-col overflow-hidden rounded-xl border border-parchment-200/20 bg-ink-900/70 backdrop-blur-md">
           <button
             onClick={() => setTransform((t) => clamp({ ...t, scale: t.scale * 1.35 }))}
-            className="grid h-9 w-9 place-items-center text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            className="grid h-9 w-9 place-items-center text-parchment-200/70 transition-colors hover:bg-white/10 hover:text-parchment-100"
             aria-label="Zoom in"
           >
             +
@@ -359,7 +359,7 @@ export function IndiaMap({ selectedId, onSelect, regionFilter, query, compact = 
           <div className="h-px bg-white/10" />
           <button
             onClick={() => setTransform((t) => clamp({ ...t, scale: t.scale / 1.35 }))}
-            className="grid h-9 w-9 place-items-center text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            className="grid h-9 w-9 place-items-center text-parchment-200/70 transition-colors hover:bg-white/10 hover:text-parchment-100"
             aria-label="Zoom out"
           >
             −
@@ -367,7 +367,7 @@ export function IndiaMap({ selectedId, onSelect, regionFilter, query, compact = 
           <div className="h-px bg-white/10" />
           <button
             onClick={reset}
-            className="grid h-9 w-9 place-items-center text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            className="grid h-9 w-9 place-items-center text-parchment-200/70 transition-colors hover:bg-white/10 hover:text-parchment-100"
             aria-label="Reset view"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -381,7 +381,7 @@ export function IndiaMap({ selectedId, onSelect, regionFilter, query, compact = 
       {transform.scale > 1.01 && (
         <button
           onClick={reset}
-          className="absolute bottom-3 right-3 rounded-full border border-white/15 bg-ink-900/80 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-white/60 backdrop-blur-md transition-colors hover:text-white"
+          className="absolute bottom-3 right-3 rounded-full border border-parchment-200/20 bg-ink-900/80 px-3 py-1.5 text-[12px] text-parchment-200/60 backdrop-blur-md transition-colors hover:text-parchment-100"
         >
           Reset view
         </button>

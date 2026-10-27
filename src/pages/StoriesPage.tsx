@@ -1,14 +1,12 @@
-import { useEffect } from 'react';
 import { Stories } from '../components/Stories';
+import { useAsk } from '../lib/ask';
 
 export function StoriesPage() {
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }, []);
+  const ask = useAsk();
 
   return (
     <div className="pt-20">
-      <Stories onAsk={() => undefined} />
+      <Stories onAsk={ask} />
     </div>
   );
 }

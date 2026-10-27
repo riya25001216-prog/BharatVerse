@@ -52,7 +52,7 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
         >
           <div className="relative flex-1">
             <svg
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/35"
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-parchment-200/50"
               width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
             >
               <circle cx="11" cy="11" r="7" />
@@ -62,7 +62,7 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search a state, capital, language or dish…"
-              className="w-full rounded-2xl border border-white/10 bg-white/[0.04] py-3 pl-10 pr-4 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-saffron-300/45 focus:bg-white/[0.06]"
+              className="w-full rounded-2xl border border-parchment-200/10 bg-white/[0.04] py-3 pl-10 pr-4 text-sm text-parchment-100 placeholder-parchment-200/40 outline-none transition-colors focus:border-saffron-300/45 focus:bg-white/[0.06]"
               aria-label="Search states"
             />
           </div>
@@ -77,9 +77,9 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
                   className={`chip shrink-0 border transition-all ${
                     active
                       ? 'border-transparent text-ink-950'
-                      : 'border-white/10 bg-white/[0.03] text-white/55 hover:border-white/25 hover:text-white/90'
+                      : 'border-parchment-200/10 bg-white/[0.03] text-parchment-200/55 hover:border-white/25 hover:text-parchment-100'
                   }`}
-                  style={active ? { background: r === 'All' ? '#ffc46b' : REGION_COLORS[r] } : undefined}
+                  style={active ? { background: r === 'All' ? '#F6C46F' : REGION_COLORS[r] } : undefined}
                 >
                   {r}
                 </button>
@@ -98,11 +98,11 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
             className="glass relative overflow-hidden rounded-[30px] p-3 sm:p-5"
           >
             <div className="flex items-center justify-between px-2 pb-1 pt-1">
-              <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-white/40">
+              <div className="flex items-center gap-2 text-[12px] text-parchment-200/50">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
                 Live map
               </div>
-              <div className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+              <div className="text-[12px] text-parchment-200/50">
                 {filtered.length} of {STATE_STORIES.length} shown
               </div>
             </div>
@@ -112,7 +112,7 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
               regionFilter={region}
               query={query}
             />
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 pb-1 pt-3 text-[10px] uppercase tracking-[0.18em] text-white/35">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 pb-1 pt-3 text-[12px] text-parchment-200/50">
               {Object.entries(REGION_COLORS).map(([r, c]) => (
                 <span key={r} className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full" style={{ background: c }} />
@@ -130,7 +130,7 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
         {/* quick picker strip */}
         <div className="mt-10">
           <div className="mb-4 flex items-center gap-3">
-            <span className="text-[10px] uppercase tracking-[0.24em] text-white/35">Quick pick</span>
+            <span className="text-[12px] text-parchment-200/50">Quick pick</span>
             <span className="h-px flex-1 bg-white/10" />
           </div>
           <div className="no-scrollbar -mx-1 flex gap-3 overflow-x-auto px-1 pb-4">
@@ -140,8 +140,8 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
                 onClick={() => setSelectedId(s.id)}
                 className={`group relative w-44 shrink-0 overflow-hidden rounded-2xl border text-left transition-all duration-300 ${
                   selectedId === s.id
-                    ? 'border-saffron-300/60 shadow-[0_0_50px_-12px_rgba(249,138,9,0.7)]'
-                    : 'border-white/10 hover:border-white/30'
+                    ? 'border-saffron-300/60 shadow-[0_0_50px_-12px_rgba(232,144,31,0.7)]'
+                    : 'border-parchment-200/10 hover:border-white/30'
                 }`}
               >
                 <img
@@ -152,8 +152,8 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-3">
-                  <div className="truncate text-[13px] font-medium text-white">{s.name}</div>
-                  <div className="mt-0.5 text-[10px] uppercase tracking-[0.16em] text-white/45">
+                  <div className="truncate text-[13px] font-medium text-parchment-100">{s.name}</div>
+                  <div className="mt-0.5 text-[12px] text-parchment-200/50">
                     {s.capital}
                   </div>
                 </div>

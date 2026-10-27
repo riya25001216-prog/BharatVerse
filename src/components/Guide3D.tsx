@@ -56,14 +56,14 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
 
           <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-3 p-4">
             <div>
-              <div className="text-[10px] uppercase tracking-[0.24em] text-saffron-300/90">
+              <div className="text-[12px] text-saffron-300/90">
                 {journey.subtitle}
               </div>
-              <div className="mt-1 font-display text-xl font-light text-white sm:text-2xl">
+              <div className="mt-1 font-display text-xl font-light text-parchment-100 sm:text-2xl">
                 {journey.name}
               </div>
             </div>
-            <div className="rounded-full border border-white/20 bg-ink-950/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-white/75 backdrop-blur-md">
+            <div className="rounded-full border border-parchment-200/20 bg-ink-950/60 px-3 py-1.5 text-[12px] text-parchment-200/75 backdrop-blur-md">
               Stop {stopIndex + 1} / {journey.stops.length}
             </div>
           </div>
@@ -73,7 +73,7 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
           <div className="absolute inset-x-0 bottom-0 flex items-center gap-3 p-4">
             <button
               onClick={() => go(-1)}
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20 bg-ink-950/60 text-white/80 backdrop-blur-md transition-colors hover:border-white/40 hover:text-white"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-parchment-200/20 bg-ink-950/60 text-parchment-200/80 backdrop-blur-md transition-colors hover:border-white/40 hover:text-parchment-100"
               aria-label="Previous stop"
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -82,7 +82,7 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
             </button>
             <button
               onClick={() => setPlaying((p) => !p)}
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20 bg-ink-950/60 text-white/80 backdrop-blur-md transition-colors hover:border-white/40 hover:text-white"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-parchment-200/20 bg-ink-950/60 text-parchment-200/80 backdrop-blur-md transition-colors hover:border-white/40 hover:text-parchment-100"
               aria-label={playing ? 'Pause' : 'Play'}
             >
               {playing ? (
@@ -98,7 +98,7 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
             </button>
             <button
               onClick={() => go(1)}
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20 bg-ink-950/60 text-white/80 backdrop-blur-md transition-colors hover:border-white/40 hover:text-white"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-parchment-200/20 bg-ink-950/60 text-parchment-200/80 backdrop-blur-md transition-colors hover:border-white/40 hover:text-parchment-100"
               aria-label="Next stop"
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -141,7 +141,7 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
               className={`chip border transition-all ${
                 journeyIndex === i
                   ? 'border-transparent bg-saffron-300 text-ink-950'
-                  : 'border-white/10 bg-white/[0.03] text-white/55 hover:border-white/25 hover:text-white'
+                  : 'border-parchment-200/10 bg-white/[0.03] text-parchment-200/55 hover:border-white/25 hover:text-parchment-100'
               }`}
             >
               {j.name}
@@ -166,16 +166,16 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/25 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4">
-                <div className="text-[10px] uppercase tracking-[0.2em] text-saffron-300/85">
+                <div className="text-[12px] text-saffron-300/85">
                   {stop.place}
                 </div>
-                <h3 className="mt-1 font-display text-2xl font-light text-white">{stop.title}</h3>
+                <h3 className="mt-1 font-display text-2xl font-light text-parchment-100">{stop.title}</h3>
               </div>
             </div>
 
-            <p className="mt-4 text-[13.5px] leading-relaxed text-white/70">{stop.description}</p>
+            <p className="mt-4 text-[13.5px] leading-relaxed text-parchment-200/70">{stop.description}</p>
 
-            <div className="mt-3 flex items-center gap-2 text-[11.5px] text-white/45">
+            <div className="mt-3 flex items-center gap-2 text-[11.5px] text-parchment-200/50">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M11 5 6 9H3v6h3l5 4V5Z" strokeLinejoin="round" />
                 <path d="M15.5 8.5a5 5 0 0 1 0 7" strokeLinecap="round" />
@@ -187,17 +187,17 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
               {panorama ? (
                 <button
                   onClick={() => onOpenPanorama(panorama.slug)}
-                  className="sheen inline-flex items-center gap-2 rounded-full bg-[linear-gradient(90deg,#ffc46b,#f98a09)] px-4 py-2.5 text-[12.5px] font-semibold text-ink-950"
+                  className="sheen inline-flex items-center gap-2 rounded-full bg-saffron-400 hover:bg-saffron-300 px-4 py-2.5 text-[12.5px] font-semibold text-ink-950"
                 >
                   Enter the 360° scene ↗
                 </button>
               ) : (
-                <span className="rounded-full border border-white/12 px-4 py-2.5 text-[12px] text-white/40">
+                <span className="rounded-full border border-parchment-200/10 px-4 py-2.5 text-[12px] text-parchment-200/50">
                   360° capture in progress
                 </span>
               )}
               {state ? (
-                <span className="rounded-full border border-white/12 px-4 py-2.5 text-[12px] text-white/60">
+                <span className="rounded-full border border-parchment-200/10 px-4 py-2.5 text-[12px] text-parchment-200/60">
                   {state.name} · {state.bestMonths}
                 </span>
               ) : null}
@@ -214,25 +214,25 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
             { k: 'Budget', v: journey.budget },
             { k: 'Best time', v: journey.bestTime },
           ].map((f) => (
-            <div key={f.k} className="rounded-2xl border border-white/10 bg-white/[0.03] px-3.5 py-3">
-              <div className="text-[9px] uppercase tracking-[0.2em] text-white/35">{f.k}</div>
-              <div className="mt-1 text-[12.5px] leading-snug text-white/85">{f.v}</div>
+            <div key={f.k} className="rounded-2xl border border-parchment-200/10 bg-white/[0.03] px-3.5 py-3">
+              <div className="text-[12px] text-parchment-200/50">{f.k}</div>
+              <div className="mt-1 text-[12.5px] leading-snug text-parchment-100">{f.v}</div>
             </div>
           ))}
         </div>
 
         <div>
           <div className="mb-3 flex items-center gap-3">
-            <span className="text-[10px] uppercase tracking-[0.24em] text-white/40">The plan</span>
+            <span className="text-[12px] text-parchment-200/50">The plan</span>
             <span className="h-px flex-1 bg-white/10" />
           </div>
-          <ol className="relative max-h-64 space-y-3.5 overflow-y-auto border-l border-white/10 pl-5 pr-1">
+          <ol className="relative max-h-64 space-y-3.5 overflow-y-auto border-l border-parchment-200/10 pl-5 pr-1">
             {journey.plan.map((p) => (
               <li key={p.day} className="relative">
                 <span className="absolute -left-[26px] top-1.5 h-2 w-2 rounded-full bg-saffron-300/80 ring-4 ring-ink-950" />
-                <div className="text-[10px] uppercase tracking-[0.18em] text-saffron-300/70">{p.day}</div>
-                <div className="mt-0.5 text-[13px] font-medium text-white">{p.title}</div>
-                <div className="mt-0.5 text-[12px] leading-relaxed text-white/50">{p.detail}</div>
+                <div className="text-[12px] text-saffron-300/70">{p.day}</div>
+                <div className="mt-0.5 text-[13px] font-medium text-parchment-100">{p.title}</div>
+                <div className="mt-0.5 text-[12px] leading-relaxed text-parchment-200/50">{p.detail}</div>
               </li>
             ))}
           </ol>

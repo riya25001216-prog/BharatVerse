@@ -5,14 +5,15 @@ import { STATE_BY_ID } from '../data/states';
 import { PANORAMAS_BY_STATE } from '../data/panoramas';
 import { India3D } from '../components/India3D';
 import { SectionHeading } from '../components/Atmosphere';
+import { setLiveView } from '../lib/liveView';
 
 const hash = (s: string) => s.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
-      <div className="text-[9px] uppercase tracking-[0.22em] text-white/35">{label}</div>
-      <div className="mt-1 font-display text-lg font-light leading-tight text-white">{value}</div>
+    <div className="rounded-2xl border border-parchment-200/10 bg-white/[0.03] px-4 py-3.5">
+      <div className="text-[12px] text-parchment-200/50">{label}</div>
+      <div className="mt-1 font-display text-lg font-light leading-tight text-parchment-100">{value}</div>
     </div>
   );
 }
@@ -20,12 +21,12 @@ function Stat({ label, value }: { label: string; value: string }) {
 function ChipList({ title, items }: { title: string; items: string[] }) {
   return (
     <div>
-      <h3 className="text-[10px] uppercase tracking-[0.24em] text-white/40">{title}</h3>
+      <h3 className="text-[12px] text-parchment-200/50">{title}</h3>
       <div className="mt-3 flex flex-wrap gap-2">
         {items.map((i) => (
           <span
             key={i}
-            className="chip border border-white/10 bg-white/5 text-white/75 transition-colors hover:border-saffron-300/40 hover:text-white"
+            className="chip border border-parchment-200/10 bg-white/5 text-parchment-200/75 transition-colors hover:border-saffron-300/40 hover:text-parchment-100"
           >
             {i}
           </span>
@@ -45,14 +46,23 @@ export function StatePage() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [id]);
 
+  useEffect(() => {
+    if (!state) return;
+    setLiveView({
+      description: `The visitor is reading the page for ${state.name}, ${state.tagline}. It covers the capital ${state.capital}, food such as ${state.cuisine.slice(0, 3).join(', ')}, festivals such as ${state.festivals
+        .map((f) => f.name)
+        .join(', ')}, and landmarks such as ${state.landmarks.map((l) => l.name).join(', ')}.`,
+    });
+  }, [state]);
+
   if (!state) {
     return (
       <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center px-6 text-center">
-        <h1 className="font-display text-3xl font-light text-white">That state is not on the map</h1>
-        <p className="mt-3 text-white/50">Try one of the 28 states or 8 union territories.</p>
+        <h1 className="font-display text-3xl font-light text-parchment-100">That state is not on the map</h1>
+        <p className="mt-3 text-parchment-200/50">Try one of the 28 states or 8 union territories.</p>
         <Link
           to="/explore"
-          className="mt-6 rounded-full bg-[linear-gradient(90deg,#ffc46b,#f98a09)] px-6 py-3 text-sm font-semibold text-ink-950"
+          className="mt-6 rounded-full bg-saffron-400 hover:bg-saffron-300 px-6 py-3 text-sm font-semibold text-ink-950"
         >
           Back to the atlas
         </Link>
@@ -90,41 +100,39 @@ export function StatePage() {
           >
             <div className={`flex items-center gap-2 ${reverse ? 'lg:justify-end' : ''}`}>
               <span
-                className="rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-950"
+                className="rounded-full px-2.5 py-1 text-[12px] font-semibold text-ink-950"
                 style={{ background: accent }}
               >
                 {state.type === 'UT' ? 'Union Territory' : 'State'}
               </span>
-              <span className="rounded-full border border-white/25 bg-ink-950/45 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-white/75 backdrop-blur-md">
+              <span className="rounded-full border border-white/25 bg-ink-950/45 px-2.5 py-1 text-[12px] text-parchment-200/75 backdrop-blur-md">
                 {state.region}
               </span>
-              <span className="rounded-full border border-white/25 bg-ink-950/45 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-white/75 backdrop-blur-md">
+              <span className="rounded-full border border-white/25 bg-ink-950/45 px-2.5 py-1 text-[12px] text-parchment-200/75 backdrop-blur-md">
                 {state.formed}
               </span>
             </div>
 
-            <h1 className="mt-4 font-display text-5xl font-light leading-[0.95] tracking-tight text-white sm:text-7xl">
+            <h1 className="mt-4 font-display text-5xl font-light leading-[0.95] tracking-tight text-parchment-100 sm:text-7xl">
               {state.name}
             </h1>
-            <p className="mt-3 text-lg italic text-white/70">{state.tagline}</p>
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-white/60">{state.vibe}</p>
+            <p className="mt-3 text-lg italic text-parchment-200/70">{state.tagline}</p>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-parchment-200/60">{state.vibe}</p>
 
             <div className="mt-7 flex flex-wrap gap-2.5">
               {panoramas.map((p) => (
-                <a
+                <Link
                   key={p.slug}
-                  href={`/panorama/${p.slug}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="sheen inline-flex items-center gap-2 rounded-full bg-[linear-gradient(90deg,#ffc46b,#f98a09)] px-5 py-2.5 text-[13px] font-semibold text-ink-950"
+                  to={`/panorama/${p.slug}`}
+                  className="sheen inline-flex items-center gap-2 rounded-full bg-saffron-400 hover:bg-saffron-300 px-5 py-2.5 text-[13px] font-semibold text-ink-950"
                 >
                   360° · {p.name}
                   <span aria-hidden>↗</span>
-                </a>
+                </Link>
               ))}
               <Link
                 to="/explore"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-ink-950/40 px-5 py-2.5 text-[13px] font-medium text-white/85 backdrop-blur-md transition-colors hover:border-white/45 hover:text-white"
+                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-ink-950/40 px-5 py-2.5 text-[13px] font-medium text-parchment-100 backdrop-blur-md transition-colors hover:border-white/45 hover:text-parchment-100"
               >
                 Back to the atlas
               </Link>
@@ -145,12 +153,12 @@ export function StatePage() {
                 fov={38}
                 elevation={54}
               />
-              <div className="pointer-events-none absolute left-4 top-4 rounded-full border border-white/15 bg-ink-950/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-white/65 backdrop-blur-md">
+              <div className="pointer-events-none absolute left-4 top-4 rounded-full border border-parchment-200/20 bg-ink-950/60 px-3 py-1.5 text-[12px] text-parchment-200/65 backdrop-blur-md">
                 {state.name} in 3D
               </div>
               <button
                 onClick={() => setShowMap(false)}
-                className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full border border-white/15 bg-ink-950/60 text-white/70 backdrop-blur-md transition-colors hover:text-white"
+                className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full border border-parchment-200/20 bg-ink-950/60 text-parchment-200/70 backdrop-blur-md transition-colors hover:text-parchment-100"
                 aria-label="Hide 3D map"
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -188,13 +196,13 @@ export function StatePage() {
                     className="glass flex flex-col gap-1 rounded-2xl px-4 py-3.5 sm:flex-row sm:items-baseline sm:gap-5"
                   >
                     <span
-                      className="shrink-0 text-[10px] uppercase tracking-[0.18em]"
+                      className="shrink-0 text-[12px]"
                       style={{ color: accent }}
                     >
                       {f.when}
                     </span>
-                    <span className="text-[14px] font-medium text-white">{f.name}</span>
-                    <span className="text-[13px] leading-relaxed text-white/55">{f.note}</span>
+                    <span className="text-[14px] font-medium text-parchment-100">{f.name}</span>
+                    <span className="text-[13px] leading-relaxed text-parchment-200/55">{f.note}</span>
                   </li>
                 ))}
               </ul>
@@ -225,8 +233,8 @@ export function StatePage() {
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div>
-                      <div className="text-[14.5px] font-medium text-white">{l.name}</div>
-                      <div className="mt-0.5 text-[13px] leading-relaxed text-white/55">{l.note}</div>
+                      <div className="text-[14.5px] font-medium text-parchment-100">{l.name}</div>
+                      <div className="mt-0.5 text-[13px] leading-relaxed text-parchment-200/55">{l.note}</div>
                     </div>
                   </motion.div>
                 ))}
@@ -242,8 +250,8 @@ export function StatePage() {
             </div>
 
             <div className="glass rounded-[26px] p-6">
-              <h3 className="text-[10px] uppercase tracking-[0.24em] text-white/40">Nature & wildlife</h3>
-              <p className="mt-3 text-[13.5px] leading-relaxed text-white/65">{state.nature}</p>
+              <h3 className="text-[12px] text-parchment-200/50">Nature & wildlife</h3>
+              <p className="mt-3 text-[13.5px] leading-relaxed text-parchment-200/65">{state.nature}</p>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 <Stat label="State animal" value={state.stateAnimal} />
                 <Stat label="State bird" value={state.stateBird} />
@@ -254,24 +262,22 @@ export function StatePage() {
               className="rounded-[26px] border p-6"
               style={{ borderColor: `${accent}44`, background: `${accent}12` }}
             >
-              <h3 className="text-[10px] uppercase tracking-[0.24em]" style={{ color: accent }}>
+              <h3 className="text-[12px]" style={{ color: accent }}>
                 Local tip
               </h3>
-              <p className="mt-3 text-[13.5px] leading-relaxed text-white/80">{state.guideTip}</p>
+              <p className="mt-3 text-[13.5px] leading-relaxed text-parchment-200/80">{state.guideTip}</p>
             </div>
 
             {panoramas.length ? (
               <div className="glass rounded-[26px] p-6">
-                <h3 className="text-[10px] uppercase tracking-[0.24em] text-white/40">
+                <h3 className="text-[12px] text-parchment-200/50">
                   360° scenes here
                 </h3>
                 <div className="mt-4 space-y-3">
                   {panoramas.map((p) => (
-                    <a
+                    <Link
                       key={p.slug}
-                      href={`/panorama/${p.slug}`}
-                      target="_blank"
-                      rel="noreferrer"
+                      to={`/panorama/${p.slug}`}
                       className="group flex items-center gap-3"
                     >
                       <img
@@ -281,11 +287,11 @@ export function StatePage() {
                         className="h-12 w-16 rounded-lg object-cover"
                       />
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[13px] text-white/85">{p.name}</span>
-                        <span className="block text-[11px] text-white/40">{p.place}</span>
+                        <span className="block truncate text-[13px] text-parchment-100">{p.name}</span>
+                        <span className="block text-[12.5px] text-parchment-200/50">{p.place}</span>
                       </span>
                       <span className="text-saffron-300 transition-transform group-hover:translate-x-0.5">↗</span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>

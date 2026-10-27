@@ -5,18 +5,27 @@ export default {
     extend: {
       colors: {
         ink: {
-          950: '#04050c',
-          900: '#070a16',
-          800: '#0d1122',
-          700: '#141a30',
-          600: '#1d2542',
+          950: '#0A0E1F',
+          900: '#0E1328',
+          800: '#121833',
+          700: '#1A2244',
+          600: '#252F58',
         },
         saffron: {
-          100: '#ffe9c7',
-          300: '#ffc46b',
-          400: '#ffa62b',
-          500: '#f98a09',
-          600: '#e06f00',
+          100: '#FBEBCB',
+          300: '#F6C46F',
+          400: '#F2A93B',
+          500: '#E8901F',
+          600: '#C9740E',
+        },
+        parchment: {
+          100: '#FBF5EA',
+          200: '#F3E9D6',
+          300: '#E4D3B4',
+        },
+        sindoor: {
+          400: '#E8624A',
+          500: '#D9482B',
         },
         lotus: {
           300: '#ff8fa8',
@@ -24,9 +33,9 @@ export default {
           500: '#e0395c',
         },
         peacock: {
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
+          300: '#6FD3C8',
+          400: '#3BBCAF',
+          500: '#1FA59A',
         },
         indigo2: {
           300: '#a5b4fc',
@@ -35,15 +44,15 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'Times New Roman', 'serif'],
+        sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'sans-serif'],
       },
-      boxShadows: {
+      boxShadow: {
         glass:
           '0 24px 70px -20px rgba(3, 6, 18, 0.85), inset 0 1px 0 0 rgba(255,255,255,0.14)',
         'glass-lg':
           '0 40px 120px -30px rgba(3, 6, 18, 0.9), inset 0 1px 0 0 rgba(255,255,255,0.18)',
-        glow: '0 0 60px -10px rgba(249, 138, 9, 0.55)',
+        glow: '0 0 60px -10px rgba(242, 169, 59, 0.5)',
       },
       animation: {
         'aurora-a': 'aurora-a 26s ease-in-out infinite',

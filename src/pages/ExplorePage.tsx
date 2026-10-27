@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { India3D } from '../components/India3D';
 import { GeoSearch } from '../components/GeoSearch';
@@ -10,6 +10,7 @@ export function ExplorePage() {
   const [region, setRegion] = useState('All');
   const [query, setQuery] = useState('');
   const [focusId, setFocusId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -27,7 +28,7 @@ export function ExplorePage() {
 
   const openState = (id: string) => {
     if (!id) return;
-    window.open(`/state/${id}`, '_blank');
+    navigate(`/state/${id}`);
   };
 
   const focused = focusId ? STATE_BY_ID[focusId] : null;
@@ -37,9 +38,9 @@ export function ExplorePage() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           kicker="The atlas"
-          title="India in —"
+          title="India in"
           highlight="three dimensions"
-          description="Spin the country, filter it by region, or drop in a pair of exact coordinates. Clicking any state opens its own page in a new tab."
+          description="Spin the country, filter it by region, or drop in a pair of exact coordinates. Click any state to open its page."
         />
 
         <div className="mx-auto mt-12 max-w-4xl">
@@ -56,9 +57,9 @@ export function ExplorePage() {
                 className={`chip shrink-0 border transition-all ${
                   region === r
                     ? 'border-transparent text-ink-950'
-                    : 'border-white/10 bg-white/[0.03] text-white/55 hover:border-white/25 hover:text-white'
+                    : 'border-parchment-200/10 bg-white/[0.03] text-parchment-200/55 hover:border-white/25 hover:text-parchment-100'
                 }`}
-                style={region === r ? { background: r === 'All' ? '#ffc46b' : REGION_COLORS[r] } : undefined}
+                style={region === r ? { background: r === 'All' ? '#F6C46F' : REGION_COLORS[r] } : undefined}
               >
                 {r}
               </button>
@@ -68,7 +69,7 @@ export function ExplorePage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter states, capitals, languages…"
-            className="w-full max-w-sm rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-[13px] text-white placeholder-white/30 outline-none transition-colors focus:border-saffron-300/45"
+            className="w-full max-w-sm rounded-full border border-parchment-200/10 bg-white/[0.04] px-4 py-2.5 text-[13px] text-parchment-100 placeholder-parchment-200/40 outline-none transition-colors focus:border-saffron-300/45"
             aria-label="Filter states"
           />
         </div>
@@ -83,14 +84,14 @@ export function ExplorePage() {
                 focusId={focusId}
                 onSelect={openState}
               />
-              <div className="pointer-events-none absolute left-4 top-4 rounded-full border border-white/15 bg-ink-950/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-white/65 backdrop-blur-md">
+              <div className="pointer-events-none absolute left-4 top-4 rounded-full border border-parchment-200/20 bg-ink-950/60 px-3 py-1.5 text-[12px] text-parchment-200/65 backdrop-blur-md">
                 Click to open in a new tab
               </div>
               {focused ? (
-                <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 rounded-2xl border border-white/15 bg-ink-950/70 px-4 py-3 backdrop-blur-md">
+                <div className="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 rounded-2xl border border-parchment-200/20 bg-ink-950/70 px-4 py-3 backdrop-blur-md">
                   <div className="min-w-0">
-                    <div className="truncate text-[14px] font-medium text-white">{focused.name}</div>
-                    <div className="text-[11.5px] text-white/45">{focused.tagline}</div>
+                    <div className="truncate text-[14px] font-medium text-parchment-100">{focused.name}</div>
+                    <div className="text-[11.5px] text-parchment-200/50">{focused.tagline}</div>
                   </div>
                   <button
                     onClick={() => openState(focused.id)}
@@ -101,7 +102,7 @@ export function ExplorePage() {
                 </div>
               ) : null}
             </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 pb-1 pt-3 text-[10px] uppercase tracking-[0.18em] text-white/35">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 pb-1 pt-3 text-[12px] text-parchment-200/50">
               {Object.entries(REGION_COLORS).map(([r, c]) => (
                 <span key={r} className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full" style={{ background: c }} />
@@ -113,13 +114,13 @@ export function ExplorePage() {
 
           <div className="glass flex max-h-[640px] flex-col rounded-[30px] p-5">
             <div className="flex items-center justify-between">
-              <h3 className="text-[10px] uppercase tracking-[0.24em] text-white/40">
+              <h3 className="text-[12px] text-parchment-200/50">
                 {filtered.length} states & territories
               </h3>
               {focusId ? (
                 <button
                   onClick={() => setFocusId(null)}
-                  className="text-[11px] text-white/40 transition-colors hover:text-white"
+                  className="text-[12.5px] text-parchment-200/50 transition-colors hover:text-parchment-100"
                 >
                   clear focus
                 </button>
@@ -143,18 +144,16 @@ export function ExplorePage() {
                       style={{ background: REGION_COLORS[s.region] }}
                     />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[13.5px] text-white/85">{s.name}</span>
-                      <span className="block truncate text-[11px] text-white/40">{s.capital}</span>
+                      <span className="block truncate text-[13.5px] text-parchment-100">{s.name}</span>
+                      <span className="block truncate text-[12.5px] text-parchment-200/50">{s.capital}</span>
                     </span>
                   </button>
-                  <a
-                    href={`/state/${s.id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="shrink-0 rounded-lg border border-white/10 px-2.5 py-1 text-[10.5px] text-white/45 opacity-0 transition-all hover:border-white/25 hover:text-white group-hover:opacity-100"
+                  <Link
+                    to={`/state/${s.id}`}
+                    className="shrink-0 rounded-lg border border-parchment-200/10 px-2.5 py-1 text-[12px] text-parchment-200/50 opacity-0 transition-all hover:border-white/25 hover:text-parchment-100 group-hover:opacity-100"
                   >
                     open ↗
-                  </a>
+                  </Link>
                 </motion.div>
               ))}
             </div>
@@ -173,7 +172,6 @@ export function ExplorePage() {
             >
               <Link
                 to={`/state/${s.id}`}
-                target="_blank"
                 className="group glass card-hover block overflow-hidden rounded-[24px]"
               >
                 <div className="relative h-40 overflow-hidden">
@@ -184,17 +182,17 @@ export function ExplorePage() {
                     className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/35 to-transparent" />
-                  <span className="absolute left-3 top-3 rounded-full bg-ink-950/60 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-white/70 backdrop-blur-md">
+                  <span className="absolute left-3 top-3 rounded-full bg-ink-950/60 px-2.5 py-1 text-[12px] text-parchment-200/70 backdrop-blur-md">
                     {s.type === 'UT' ? 'UT' : 'State'} · {s.region}
                   </span>
                 </div>
                 <div className="p-5">
                   <div className="flex items-baseline justify-between gap-3">
-                    <h3 className="font-display text-xl font-light text-white">{s.name}</h3>
-                    <span className="text-white/30 transition-transform group-hover:translate-x-0.5">↗</span>
+                    <h3 className="font-display text-xl font-light text-parchment-100">{s.name}</h3>
+                    <span className="text-parchment-200/50 transition-transform group-hover:translate-x-0.5">↗</span>
                   </div>
-                  <p className="mt-1.5 text-[12.5px] italic text-white/50">{s.tagline}</p>
-                  <p className="mt-3 text-[12.5px] leading-relaxed text-white/45">{s.vibe}</p>
+                  <p className="mt-1.5 text-[12.5px] italic text-parchment-200/50">{s.tagline}</p>
+                  <p className="mt-3 text-[12.5px] leading-relaxed text-parchment-200/50">{s.vibe}</p>
                 </div>
               </Link>
             </motion.div>

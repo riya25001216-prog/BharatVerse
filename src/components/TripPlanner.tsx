@@ -44,13 +44,13 @@ export function TripPlanner() {
     <section id="plan" className="relative scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="max-w-3xl">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.34em] text-saffron-300/90">
+          <div className="text-[12.5px] font-semibold text-saffron-300/90">
             Section five
           </div>
-          <h2 className="mt-5 font-display text-4xl font-light leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl">
+          <h2 className="mt-5 font-display text-4xl font-light leading-[1.08] tracking-tight text-parchment-100 sm:text-5xl md:text-6xl">
             Plan your <span className="font-playfair text-shine italic">own journey</span>
           </h2>
-          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-white/55">
+          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-parchment-200/55">
             Choose a curated route, set your dates, budget and travellers, and BharatVerse will assemble
             a day-by-day itinerary from the same stops the virtual guide narrates.
           </p>
@@ -65,57 +65,57 @@ export function TripPlanner() {
         >
           <div className="grid gap-5 md:grid-cols-2">
             <label className="block">
-              <span className="text-[10px] uppercase tracking-[0.24em] text-white/40">Destination</span>
+              <span className="text-[12px] text-parchment-200/50">Destination</span>
               <select
                 value={destinationId}
                 onChange={(e) => setDestinationId(e.target.value)}
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none focus:border-saffron-300/45"
+                className="mt-2 w-full rounded-2xl border border-parchment-200/10 bg-white/[0.04] px-4 py-3 text-sm text-parchment-100 outline-none focus:border-saffron-300/45"
               >
                 {JOURNEYS.map((j) => (
-                  <option key={j.id} value={j.id} className="bg-ink-900 text-white">
-                    {j.name} — {j.subtitle}
+                  <option key={j.id} value={j.id} className="bg-ink-900 text-parchment-100">
+                    {j.name} â€” {j.subtitle}
                   </option>
                 ))}
               </select>
             </label>
 
             <label className="block">
-              <span className="text-[10px] uppercase tracking-[0.24em] text-white/40">Days</span>
+              <span className="text-[12px] text-parchment-200/50">Days</span>
               <input
                 type="number"
                 min={1}
                 max={21}
                 value={days}
                 onChange={(e) => setDays(Math.max(1, Math.min(21, Number(e.target.value) || 1)))}
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none focus:border-saffron-300/45"
+                className="mt-2 w-full rounded-2xl border border-parchment-200/10 bg-white/[0.04] px-4 py-3 text-sm text-parchment-100 outline-none focus:border-saffron-300/45"
               />
             </label>
 
             <label className="block">
-              <span className="text-[10px] uppercase tracking-[0.24em] text-white/40">Start date</span>
+              <span className="text-[12px] text-parchment-200/50">Start date</span>
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none focus:border-saffron-300/45"
+                className="mt-2 w-full rounded-2xl border border-parchment-200/10 bg-white/[0.04] px-4 py-3 text-sm text-parchment-100 outline-none focus:border-saffron-300/45"
               />
             </label>
 
             <label className="block">
-              <span className="text-[10px] uppercase tracking-[0.24em] text-white/40">Travellers</span>
+              <span className="text-[12px] text-parchment-200/50">Travellers</span>
               <input
                 type="number"
                 min={1}
                 max={16}
                 value={travellers}
                 onChange={(e) => setTravellers(Math.max(1, Math.min(16, Number(e.target.value) || 1)))}
-                className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none focus:border-saffron-300/45"
+                className="mt-2 w-full rounded-2xl border border-parchment-200/10 bg-white/[0.04] px-4 py-3 text-sm text-parchment-100 outline-none focus:border-saffron-300/45"
               />
             </label>
           </div>
 
           <div className="mt-5">
-            <span className="text-[10px] uppercase tracking-[0.24em] text-white/40">Interests</span>
+            <span className="text-[12px] text-parchment-200/50">Interests</span>
             <div className="mt-3 flex flex-wrap gap-2">
               {INTERESTS.map((i) => (
                 <button
@@ -125,7 +125,7 @@ export function TripPlanner() {
                   className={`chip shrink-0 border transition-all ${
                     interests.includes(i)
                       ? 'border-transparent bg-saffron-300 text-ink-950'
-                      : 'border-white/10 bg-white/[0.03] text-white/55 hover:border-white/25 hover:text-white'
+                      : 'border-parchment-200/10 bg-white/[0.03] text-parchment-200/55 hover:border-white/25 hover:text-parchment-100'
                   }`}
                 >
                   {i}
@@ -138,11 +138,11 @@ export function TripPlanner() {
             <button
               type="button"
               onClick={generate}
-              className="sheen rounded-full bg-[linear-gradient(90deg,#ffc46b,#f98a09)] px-7 py-3 text-sm font-semibold text-ink-950 transition-transform hover:scale-[1.02]"
+              className="sheen rounded-full bg-saffron-400 hover:bg-saffron-300 px-7 py-3 text-sm font-semibold text-ink-950 transition-transform hover:scale-[1.02]"
             >
               Generate itinerary
             </button>
-            <span className="text-[12px] text-white/40">Budget guidance: ask Tara in the guide.</span>
+            <span className="text-[12px] text-parchment-200/50">Budget guidance: ask Tara in the guide.</span>
           </div>
         </motion.div>
 
@@ -155,29 +155,29 @@ export function TripPlanner() {
           >
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
-                <div className="text-[10px] uppercase tracking-[0.24em] text-saffron-300/80">
+                <div className="text-[12px] text-saffron-300/80">
                   {trip.subtitle}
                 </div>
-                <h3 className="mt-1 font-display text-2xl font-light text-white">{trip.name}</h3>
+                <h3 className="mt-1 font-display text-2xl font-light text-parchment-100">{trip.name}</h3>
               </div>
-              <div className="text-[12px] text-white/50">
-                {trip.duration} · {trip.distance} · {trip.budget}
+              <div className="text-[12px] text-parchment-200/50">
+                {trip.duration} Â· {trip.distance} Â· {trip.budget}
               </div>
             </div>
 
-            <ol className="mt-8 space-y-5 border-l border-white/10 pl-6">
+            <ol className="mt-8 space-y-5 border-l border-parchment-200/10 pl-6">
               {itinerary.map((p) => (
                 <li key={p.day} className="relative">
                   <span className="absolute -left-[30px] top-1.5 h-2 w-2 rounded-full bg-saffron-300/80 ring-4 ring-ink-950" />
-                  <div className="text-[10px] uppercase tracking-[0.18em] text-saffron-300/70">{p.day}</div>
-                  <div className="mt-0.5 text-[14px] font-medium text-white">{p.title}</div>
-                  <div className="mt-0.5 text-[13px] leading-relaxed text-white/50">{p.detail}</div>
+                  <div className="text-[12px] text-saffron-300/70">{p.day}</div>
+                  <div className="mt-0.5 text-[14px] font-medium text-parchment-100">{p.title}</div>
+                  <div className="mt-0.5 text-[13px] leading-relaxed text-parchment-200/50">{p.detail}</div>
                   <div className="mt-2">
                     <a
                       href={bookingUrl(p.title + ' ' + p.detail)}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-[12px] font-medium text-white/70 underline decoration-white/25 underline-offset-4 transition-colors hover:text-saffron-300"
+                      className="text-[12px] font-medium text-parchment-200/70 underline decoration-white/25 underline-offset-4 transition-colors hover:text-saffron-300"
                     >
                       Check official booking / tickets
                     </a>
@@ -186,7 +186,7 @@ export function TripPlanner() {
               ))}
             </ol>
 
-            <p className="mt-8 text-[12px] leading-relaxed text-white/40">
+            <p className="mt-8 text-[12px] leading-relaxed text-parchment-200/50">
               BharatVerse prepares the route; bookings happen on official tourism or monument websites.
               Nothing here is confirmed until you complete a booking there.
             </p>

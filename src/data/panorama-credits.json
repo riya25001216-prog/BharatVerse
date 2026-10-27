@@ -208,16 +208,6 @@
     "height": 1289,
     "equirectangular": false
   },
-  "cellular-jail": {
-    "slug": "cellular-jail",
-    "title": "Port Blair views vrvbaan042k24 (763).jpg",
-    "credit": "Vinayaraj",
-    "license": "CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File%3APort%20Blair%20views%20vrvbaan042k24%20(763).jpg",
-    "width": 4032,
-    "height": 2256,
-    "equirectangular": false
-  },
   "rann-of-kutch": {
     "slug": "rann-of-kutch",
     "title": "Rann utsav 01.jpg",
@@ -296,16 +286,6 @@
     "source": "https://commons.wikimedia.org/wiki/File%3AA%20part%20of%20Kareng%20Ghor-%20Ahom%20Raja's%20Palace%2C%20Garhgaon%2C%20Sivasagar%2C%20Assam.jpg",
     "width": 4032,
     "height": 2268,
-    "equirectangular": false
-  },
-  "shore-temple": {
-    "slug": "shore-temple",
-    "title": "Kaldan Samudhra Mahabalipuram Sep22 A7C 02463.jpg",
-    "credit": "This Photo was taken by Timothy A. Gonsalves. Feel free to use my photos, but please mention me as the author. I would m",
-    "license": "CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File%3AKaldan%20Samudhra%20Mahabalipuram%20Sep22%20A7C%2002463.jpg",
-    "width": 5948,
-    "height": 3346,
     "equirectangular": false
   },
   "sun-temple-konark": {

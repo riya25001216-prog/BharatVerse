@@ -23,7 +23,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 27.1751,
     lng: 78.0421,
     caption: 'The white marble mausoleum on the banks of the Yamuna.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Built between 1632 and 1653, the Taj Mahal is a mausoleum for Mumtaz Mahal, and by extension a statement of Mughal power that has outlasted the empire that raised it.',
     facts: ['UNESCO World Heritage Site', '73 m main dome', '22 years to build'],
@@ -36,7 +36,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 26.9124,
     lng: 75.7813,
     caption: 'The honeycomb palace of pink and red sandstone.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Five storeys and 953 jharokhas, built in 1799 so that the royal women could watch the street below without ever being seen.',
     facts: ['953 windows', '5 storeys', 'Pink sandstone and lime plaster'],
@@ -49,7 +49,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 26.9855,
     lng: 75.8513,
     caption: 'The hill fort above the Maota lake.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Four courtyards of Rajput and Mughal architecture: the Suraj Pol gate, the Diwan-i-Aam, the Sheesh Mahal of mirrored glass, and the Ganesh Pol steps.',
     facts: ['Maota lake below', 'Sheesh Mahal of mirrors', 'Declared a UNESCO site in 2023'],
@@ -101,7 +101,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 28.6562,
     lng: 77.241,
     caption: 'The Mughal seat of power for a century.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Shah Jahan moved the Mughal court here in 1648 from Agra, and the fort became the ceremonial heart of the empire for a hundred years.',
     facts: ['Declared a UNESCO site in 2007', 'The Diwan-i-Khas', 'Lalbagh and the Rang Mahal'],
@@ -127,7 +127,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 27.1839,
     lng: 77.9714,
     caption: 'Akbar\'s red sandstone capital, abandoned after fourteen years.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Built by Akbar to celebrate the birth of his son, it was occupied for barely fourteen years before the court moved back to Agra.',
     facts: ['UNESCO World Heritage Site', 'Buland Darwaza, 54 m high', 'Akshardham carved in marble'],
@@ -140,7 +140,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 25.3109,
     lng: 83.0107,
     caption: 'The Ganga at dawn, and the morning aarti.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Eighty-eight ghats step down to the river here. The aarti at dusk, with the lamps on the water, is the single most photographed evening in India.',
     facts: ['88 ghats', 'The Ganga is 2,525 km long', 'Kashi — the oldest continuously lived-in city in the world'],
@@ -166,7 +166,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 19.8876,
     lng: 86.0945,
     caption: 'A stone chariot for the sun god.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Built in the 13th century, the temple is shaped like a chariot with 24 carved wheels and stands in the Baidhya river to the east.',
     facts: ['24 carved wheels', 'UNESCO World Heritage Site', 'A chariot to carry the sun god'],
@@ -179,23 +179,10 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 19.8876,
     lng: 86.0945,
     caption: 'Twenty-four wheels, each carved differently.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Each of the 24 wheels has eight spokes and its own set of carved figures — elephants, lions, musicians and dancers — all carved from a single piece of sandstone.',
     facts: ['24 wheels', '8 spokes each', 'Dancers and musicians in relief'],
-  },
-  {
-    slug: 'shore-temple',
-    name: 'Shore Temple',
-    place: 'Mahabalipuram, Tamil Nadu',
-    stateId: 'tamil-nadu',
-    lat: 12.9208,
-    lng: 80.1948,
-    caption: 'Two Pallavid temples facing the Bay of Bengal.',
-    kind: 'sphere',
-    story:
-      'Built in the 8th century, with a tower form that was unique in the Tamil world at that date — and that later temples copied for centuries.',
-    facts: ['8th century Pallavid', 'Two shrines and a rectangular tank', 'A UNESCO site since 2004'],
   },
   {
     slug: 'meenakshi-temple',
@@ -205,7 +192,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 9.9195,
     lng: 78.1193,
     caption: 'A temple city of fourteen painted gopurams.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'More than a temple, a town: the corridors, the tank and the thousand sculptures of the goddesses are still in daily use.',
     facts: ['14 gopurams', 'The Thousand Pillar Hall', 'Reenactment of the Rath Yatra in April'],
@@ -218,7 +205,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 10.7828,
     lng: 79.1318,
     caption: 'The great Chola vimana at Thanjavur.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Raised in 1010 CE, the 63 m tower is the tallest in the country and still carries the Chola frescoes on its upper storeys.',
     facts: ['63 m vimana', 'Rajaraja Chola I', 'A UNESCO World Heritage Site'],
@@ -231,7 +218,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 15.335,
     lng: 76.4606,
     caption: 'The boulder valley capital of Vijayanagara.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'The ruined capital of a South Indian empire, spread across a granite landscape of giant boulders, temples and water tanks.',
     facts: ['The capital of Vijayanagara', 'Over 1,600 monuments', 'A UNESCO World Heritage Site'],
@@ -244,7 +231,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 12.3052,
     lng: 76.6551,
     caption: 'An Indo-Saracenic palace lit every Sunday evening.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Rebuilt after a fire in 1897, the palace mixes Dravidian, Indo-Saracenic and Art Deco work, and its lighting ceremony draws tens of thousands.',
     facts: ['97,000 bulbs when lit', 'Dussehra celebrations in October', 'The Wodeyar royal family still lives here'],
@@ -257,7 +244,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 31.619,
     lng: 74.9733,
     caption: 'A gurdwara wrapped in gold, standing in a sacred tank.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'The most visited Sikh shrine in the world, and the only one with an open kitchen that feeds anyone who asks, every day of the year.',
     facts: ['Free langar for 100,000 a day', 'The Amrit Sarovar tank', 'The Darshani Deori, seen from the bridge'],
@@ -296,7 +283,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 33.7431,
     lng: 78.9153,
     caption: 'A high lake that changes colour by the hour.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'At 4,350 m the water runs from cobalt to turquoise as the wind pushes it, and in winter it freezes into a dark sheet of ice.',
     facts: ['134 km long', '4,350 m above sea level', 'Bordered by India and Tibet'],
@@ -309,7 +296,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 34.1526,
     lng: 77.5771,
     caption: 'A high-desert town under the fortress.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Whitewashed houses, poplar trees and a 17th-century palace on the ridge, with a Buddhist monastery on the hill opposite.',
     facts: ['3,500 m above sea level', 'Leh Palace, 1600s', 'The Tibetan Buddhist Namgyal Tsemo'],
@@ -322,7 +309,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 30.7346,
     lng: 79.0669,
     caption: 'A stone temple at 3,583 m under the Kedarnath peak.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'One of the twelve Jyotirlingas, rebuilt in the eighteenth century after the Maratha saint Shankaracharya, and standing directly below a 6,900 m peak.',
     facts: ['3,583 m high', 'The Kedarnath peak at 6,900 m', 'Open roughly May to October'],
@@ -335,7 +322,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 32.239,
     lng: 77.6194,
     caption: 'A cold-desert village in the Lahaul valley.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Green fields under a desert, with monasteries, apricot orchards and the road to the Kunzum pass above.',
     facts: ['2,200 m above sea level', 'The road to Komic and the Kunzum pass', 'Baralacha and Khardung La'],
@@ -374,7 +361,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 26.9985,
     lng: 94.1657,
     caption: 'The seven-storeyed palace of the Ahom kings.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'The Ahom capital, whose brick tower was modelled on the Syrian pyramids — a reminder of the trade that reached the Brahmaputra valley.',
     facts: ['The Ahom capital from 1797', 'A 32 m brick tower', 'The Rang Ghar amphitheatre'],
@@ -400,7 +387,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 24.8318,
     lng: 79.9199,
     caption: 'Carved sandstone in the Chandela style.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'One of the best of the Western Group temples, covered in sculpture that runs from battle and hunting to the most explicit imagery anywhere in Indian art.',
     facts: ['950 – 1050 CE', 'A UNESCO World Heritage Site', '35 temples in the Western Group'],
@@ -413,7 +400,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 23.8607,
     lng: 72.3763,
     caption: 'A stepwell temple turned upside down.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'Built in the 11th century by Queen Udayamati for Bhima I, and buried by silt until it was rediscovered in the 1980s.',
     facts: ['11th century Solanki', 'Seven levels underground', 'A UNESCO World Heritage Site'],
@@ -426,23 +413,10 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 23.8591,
     lng: 69.9808,
     caption: 'A salt desert the size of a small country.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'A salt crust pushed up by an underground river, white and cracked by day and a mirror under a full moon.',
     facts: ['7,500 km² of salt pan', 'The Rann Utsav tent city', 'Wild asses and blackbuck'],
-  },
-  {
-    slug: 'cellular-jail',
-    name: 'Port Blair',
-    place: 'Andaman & Nicobar Islands',
-    stateId: 'andaman-and-nicobar-islands',
-    lat: 11.6234,
-    lng: 92.7265,
-    caption: 'The islands, and the memory of the cellular jail.',
-    kind: 'sphere',
-    story:
-      'A tropical archipelago of 572 islands with a coral rim, and the national memorial at the colonial jail where independence was written.',
-    facts: ['572 islands', 'A UNESCO tentative site: the Cellular Jail', 'The only active volcano in India'],
   },
   {
     slug: 'hyderabad-lake',
@@ -452,7 +426,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 17.4212,
     lng: 78.4739,
     caption: 'The heart-shaped lake with the Buddha statue at its centre.',
-    kind: 'cylinder',
+    kind: 'sphere',
     story:
       'Built in 1562 on a tributary of the Musi river, Hussain Sagar is Hyderabad’s oldest lake, crowned by an 18 m tall monolithic Buddha statue on Gibraltar Rock.',
     facts: ['Built 1562', 'Buddha statue: 18 m tall', 'Necklace Road promenade'],
@@ -478,7 +452,7 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
     lat: 13.0500,
     lng: 80.2820,
     caption: 'The long sand of the Bay of Bengal.',
-    kind: 'sphere',
+    kind: 'photo',
     story:
       'One of the longest urban beaches in the world, running beside Fort St George, where the first English settlement in India was built in 1639.',
     facts: ['6 km of sand', 'Fort St George, 1639', 'The Madras filter coffee culture'],
@@ -504,16 +478,10 @@ export const JOURNEY_PANORAMAS: Record<string, string> = {
   'golden-triangle:2': 'fatehpur-sikri',
   'golden-triangle:3': 'hawa-mahal',
   'golden-triangle:4': 'amber-fort',
-  'kerala-monsoon:0': 'kerala-backwaters',
-  'kerala-monsoon:1': 'kerala-backwaters',
-  'kerala-monsoon:2': 'kerala-backwaters',
-  'kerala-monsoon:3': 'kerala-backwaters',
   'ladakh-high-road:0': 'hemis-monastery',
   'ladakh-high-road:1': 'pangong-lake',
   'ladakh-high-road:2': 'pangong-lake',
   'ladakh-high-road:3': 'hemis-monastery',
-  'temple-trail-south:0': 'shore-temple',
-  'temple-trail-south:1': 'shore-temple',
   'temple-trail-south:2': 'temple-south',
   'temple-trail-south:3': 'meenakshi-temple',
   'sundarbans-story:0': 'sundarban',

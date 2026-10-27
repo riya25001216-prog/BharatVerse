@@ -355,7 +355,7 @@ function Route({ route }: { route: string[] }) {
 
   return (
     <group>
-      <Line points={points} color="#ffc46b" lineWidth={3.4} transparent opacity={0.9} />
+      <Line points={points} color="#F6C46F" lineWidth={3.4} transparent opacity={0.9} />
       <Line points={points} color="#fff6de" lineWidth={1.1} transparent opacity={0.55} />
       <mesh ref={marker}>
         <sphereGeometry args={[1.15, 24, 24]} />
@@ -363,9 +363,9 @@ function Route({ route }: { route: string[] }) {
       </mesh>
       <mesh ref={glow}>
         <sphereGeometry args={[2.2, 20, 20]} />
-        <meshBasicMaterial color="#ffc46b" transparent opacity={0.22} depthWrite={false} />
+        <meshBasicMaterial color="#F6C46F" transparent opacity={0.22} depthWrite={false} />
       </mesh>
-      <pointLight color="#ffc46b" intensity={14} distance={34} decay={2} position={points[0]} />
+      <pointLight color="#F6C46F" intensity={14} distance={34} decay={2} position={points[0]} />
     </group>
   );
 }
@@ -484,7 +484,7 @@ function Scene({
         shadow-normalBias={0.04}
       />
       <directionalLight position={[-62, 34, -46]} intensity={0.5} color="#8fa3ff" />
-      <pointLight position={[0, 26, 40]} intensity={0.5} color="#ffc46b" distance={150} decay={1.6} />
+      <pointLight position={[0, 26, 40]} intensity={0.5} color="#F6C46F" distance={150} decay={1.6} />
 
       <group>
         {SHAPES.map((s) => (

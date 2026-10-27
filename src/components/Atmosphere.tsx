@@ -1,14 +1,12 @@
 import { motion } from 'framer-motion';
 
-/** Slow-drifting aurora field that sits behind every section. */
+/** Static night-sky wash behind every page: deep indigo with a faint marigold glow. */
 export function Aurora() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-      <div className="absolute -left-[18%] -top-[22%] h-[62vmax] w-[62vmax] animate-aurora-a rounded-full bg-[radial-gradient(circle_at_center,rgba(249,138,9,0.26),transparent_62%)] blur-[90px]" />
-      <div className="absolute -right-[14%] top-[6%] h-[54vmax] w-[54vmax] animate-aurora-b rounded-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.3),transparent_62%)] blur-[100px]" />
-      <div className="absolute bottom-[-24%] left-[24%] h-[58vmax] w-[58vmax] animate-aurora-c rounded-full bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.22),transparent_62%)] blur-[110px]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,5,12,0.35)_0%,rgba(4,5,12,0.7)_45%,rgba(4,5,12,0.92)_100%)]" />
-      <div className="absolute inset-0 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(ellipse_at_50%_0%,#000_20%,transparent_78%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(90%_60%_at_15%_0%,rgba(37,47,88,0.7),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(60%_45%_at_95%_35%,rgba(242,169,59,0.06),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(70%_50%_at_10%_100%,rgba(31,165,154,0.05),transparent_70%)]" />
     </div>
   );
 }
@@ -37,11 +35,9 @@ export function SectionHeading({
         transition={{ duration: 0.6 }}
         className={`flex items-center gap-3 ${isCenter ? 'justify-center' : ''}`}
       >
-        <span className="h-px w-8 bg-gradient-to-r from-transparent to-saffron-400/70" />
-        <span className="text-[11px] font-semibold uppercase tracking-[0.34em] text-saffron-300/90">
-          {kicker}
-        </span>
-        <span className="h-px w-8 bg-gradient-to-l from-transparent to-saffron-400/70" />
+        <span className="h-px w-8 bg-saffron-400/80" aria-hidden="true" />
+        <span className="text-[14px] font-medium text-saffron-300">{kicker}</span>
+        {isCenter ? <span className="h-px w-8 bg-saffron-400/80" aria-hidden="true" /> : null}
       </motion.div>
 
       <motion.h2
@@ -49,10 +45,10 @@ export function SectionHeading({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.7, delay: 0.08 }}
-        className="mt-5 font-display text-4xl font-light leading-[1.08] tracking-tight text-white sm:text-5xl md:text-6xl"
+        className="mt-5 font-display text-4xl font-light leading-[1.05] tracking-[-0.025em] text-parchment-100 sm:text-5xl md:text-[3.5rem]"
       >
         {title}{' '}
-        {highlight ? <span className="text-shine italic">{highlight}</span> : null}
+        {highlight ? <span className="text-shine">{highlight}</span> : null}
       </motion.h2>
 
       {description ? (
@@ -61,7 +57,7 @@ export function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.7, delay: 0.16 }}
-          className={`mt-5 text-[15px] leading-relaxed text-white/55 sm:text-base ${isCenter ? 'mx-auto max-w-2xl' : ''}`}
+          className={`mt-5 max-w-[38rem] text-[16px] leading-relaxed text-parchment-200/65 sm:text-[17px] ${isCenter ? 'mx-auto' : ''}`}
         >
           {description}
         </motion.p>

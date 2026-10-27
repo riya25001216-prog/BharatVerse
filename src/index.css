@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -38,8 +36,9 @@
 }
 
 .font-playfair {
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
   font-style: italic;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
 }
 
 .hero-anim {
@@ -65,7 +64,11 @@
 @layer base {
   :root {
     color-scheme: dark;
-    --edge: rgba(255, 255, 255, 0.14);
+    --night: #0a0e1f;
+    --marigold: #f2a93b;
+    --peacock: #1fa59a;
+    --parchment: #f3e9d6;
+    --edge: rgba(243, 233, 214, 0.13);
     --edge-soft: rgba(255, 255, 255, 0.07);
     --glass-tint: rgba(255, 255, 255, 0.045);
     --glass-tint-strong: rgba(255, 255, 255, 0.075);
@@ -81,21 +84,34 @@
   }
 
   body {
-    @apply bg-ink-950 font-sans text-white/85 antialiased;
+    @apply bg-ink-950 font-sans text-parchment-200 antialiased;
     margin: 0;
     min-height: 100vh;
     overflow-x: hidden;
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+    background-color: var(--night);
     background-image:
-      radial-gradient(120% 80% at 50% -10%, rgba(99, 102, 241, 0.18), transparent 60%),
-      radial-gradient(90% 60% at 8% 12%, rgba(249, 138, 9, 0.12), transparent 62%),
-      radial-gradient(80% 60% at 92% 30%, rgba(20, 184, 166, 0.1), transparent 60%),
-      linear-gradient(180deg, #04050c 0%, #070a16 40%, #05070f 100%);
+      radial-gradient(110% 70% at 50% -10%, rgba(37, 47, 88, 0.55), transparent 62%),
+      radial-gradient(70% 50% at 0% 20%, rgba(242, 169, 59, 0.07), transparent 60%),
+      radial-gradient(60% 50% at 100% 60%, rgba(31, 165, 154, 0.06), transparent 60%);
     background-attachment: fixed;
   }
 
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-variation-settings: 'SOFT' 50, 'opsz' 96;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
   ::selection {
-    background: rgba(249, 138, 9, 0.32);
+    background: rgba(242, 169, 59, 0.35);
     color: #fff;
   }
 
@@ -107,18 +123,18 @@
     background: rgba(255, 255, 255, 0.03);
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(249, 138, 9, 0.5), rgba(99, 102, 241, 0.5));
+    background: rgba(243, 233, 214, 0.18);
     border-radius: 999px;
     border: 2px solid transparent;
     background-clip: padding-box;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(255, 196, 107, 0.75), rgba(129, 140, 248, 0.75));
+    background: rgba(242, 169, 59, 0.6);
     background-clip: padding-box;
   }
 
   :focus-visible {
-    outline: 2px solid rgba(255, 196, 107, 0.85);
+    outline: 2px solid rgba(246, 196, 111, 0.85);
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -128,15 +144,13 @@
   /* ---------- liquid glass ---------- */
   .glass {
     position: relative;
-    background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.025) 42%, rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(22px) saturate(150%);
-    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    background: linear-gradient(160deg, rgba(37, 47, 88, 0.55), rgba(18, 24, 51, 0.6));
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
     border: 1px solid var(--edge);
     box-shadow:
-      0 24px 60px -24px rgba(2, 4, 12, 0.9),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
-      inset 0 -18px 40px -30px rgba(255, 255, 255, 0.35);
+      0 30px 70px -36px rgba(2, 4, 12, 0.95),
+      inset 0 1px 0 0 rgba(243, 233, 214, 0.1);
   }
 
   .glass::before {
@@ -147,10 +161,10 @@
     padding: 1px;
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.42),
-      rgba(255, 255, 255, 0) 32%,
-      rgba(255, 255, 255, 0) 62%,
-      rgba(255, 196, 107, 0.22)
+      rgba(243, 233, 214, 0.22),
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0) 70%,
+      rgba(242, 169, 59, 0.2)
     );
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
@@ -203,27 +217,24 @@
     inset: 0;
     pointer-events: none;
     z-index: 60;
-    opacity: 0.045;
+    opacity: 0.035;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   .text-shine {
-    background: linear-gradient(100deg, #fff 12%, #ffc46b 38%, #ff8fa8 56%, #a5b4fc 76%, #fff 96%);
-    background-size: 220% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shimmer 9s linear infinite;
+    color: var(--parchment);
+    font-style: italic;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 96;
   }
 
   .text-soft {
-    @apply text-white/60;
+    @apply text-parchment-200/60;
   }
 
   .divider-glow {
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 196, 107, 0.45), transparent);
+    background: linear-gradient(90deg, transparent, rgba(243, 233, 214, 0.2), transparent);
   }
 
   .chip {
@@ -241,12 +252,62 @@
       border-color 0.45s ease;
   }
   .card-hover:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255, 196, 107, 0.42);
+    transform: translateY(-4px);
+    border-color: rgba(242, 169, 59, 0.38);
     box-shadow:
       0 34px 80px -34px rgba(2, 4, 12, 0.95),
-      0 0 46px -14px rgba(249, 138, 9, 0.42),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+      inset 0 1px 0 0 rgba(243, 233, 214, 0.14);
+  }
+
+  /* primary + secondary buttons used across pages */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-saffron-400 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors duration-200 hover:bg-saffron-300;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-parchment-200/25 px-6 py-3 text-sm font-semibold text-parchment-100 transition-colors duration-200 hover:border-parchment-200/60 hover:bg-white/5;
+  }
+
+  /* ---------- voice orb: a marigold sun that swells with speech ---------- */
+  .voice-orb {
+    --level: 0;
+    position: relative;
+    width: 128px;
+    height: 128px;
+    display: grid;
+    place-items: center;
+  }
+  .voice-orb__core,
+  .voice-orb__halo {
+    position: absolute;
+    border-radius: 9999px;
+  }
+  .voice-orb__core {
+    inset: 22px;
+    background:
+      radial-gradient(circle at 35% 30%, #fbebcb 0%, #f6c46f 28%, #e8901f 62%, #c9740e 100%);
+    box-shadow:
+      0 0 40px -6px rgba(242, 169, 59, 0.75),
+      inset 0 -8px 18px rgba(201, 116, 14, 0.6);
+    transform: scale(calc(0.92 + var(--level) * 0.22));
+    transition: transform 90ms linear;
+  }
+  .voice-orb__halo {
+    inset: 0;
+    background: radial-gradient(circle, rgba(242, 169, 59, 0.35), transparent 68%);
+    transform: scale(calc(0.9 + var(--level) * 0.6));
+    opacity: calc(0.45 + var(--level) * 0.55);
+    transition: transform 120ms linear, opacity 120ms linear;
+  }
+  .voice-orb[data-live='false'] .voice-orb__core {
+    animation: orb-breathe 4.5s ease-in-out infinite;
+    filter: saturate(0.85);
+  }
+  .voice-orb[data-speaking='true'] .voice-orb__halo {
+    background: radial-gradient(circle, rgba(246, 196, 111, 0.5), transparent 68%);
+  }
+  @keyframes orb-breathe {
+    0%, 100% { transform: scale(0.92); }
+    50% { transform: scale(0.98); }
   }
 }
 

@@ -3,7 +3,8 @@ import rawStates from '../data/india-states.json';
 import { STATE_BY_ID } from '../data/states';
 import type { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 
-export type PanoramaKind = 'sphere' | 'cylinder';
+/** 'sphere' = true 360° equirectangular image; 'photo' = ordinary or wide photo shown on a curved wall. */
+export type PanoramaKind = 'sphere' | 'photo';
 
 type Geometry = Polygon | MultiPolygon;
 

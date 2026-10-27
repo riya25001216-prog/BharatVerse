@@ -1,83 +1,87 @@
 import { Link } from 'react-router-dom';
-import { RevealLayer } from './RevealLayer';
+import { STATE_STORIES } from '../data/states';
+import { PANORAMA_PLACES } from '../data/panoramas';
 
-const BASE_IMAGE =
-  'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260609_195923_b0ba8ace-1d1d-4f2c-9a28-1ab84b330680.png&w=1280&q=85';
-
-const REVEAL_IMAGE =
-  'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260609_201152_bba90a12-bf12-459f-91f0-51f237dbaf3b.png&w=1280&q=85';
+const FACTS = [
+  { value: String(STATE_STORIES.length), label: 'states and union territories' },
+  { value: String(PANORAMA_PLACES.length), label: 'scenes you can step inside' },
+  { value: '1', label: 'voice guide you can simply talk to' },
+];
 
 export function Hero() {
   return (
-    <section
-      id="home"
-      className="relative w-full overflow-hidden bg-black"
-      style={{ height: '100dvh' }}
-    >
-      {/* base image */}
-      <div className="absolute inset-0 z-10">
+    <section id="home" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink-950">
+      {/* photograph: Ganga aarti, Varanasi */}
+      <div className="absolute inset-0 -z-10">
         <img
-          src={BASE_IMAGE}
-          alt="India - a living heritage landscape"
-          className="h-full w-full object-cover"
+          src="/images/scene-varanasi.jpg"
+          alt="A priest raises a flaming lamp during the evening Ganga aarti in Varanasi"
+          className="hero-zoom h-full w-full object-cover object-[70%_center]"
+          fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_10%,rgba(4,5,12,0.12),rgba(4,5,12,0.88)_72%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink-950/85 via-ink-950/45 to-ink-950" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#0A0E1F_0%,rgba(10,14,31,0.86)_34%,rgba(10,14,31,0.25)_68%,rgba(10,14,31,0.35)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950 to-transparent" />
       </div>
 
-      {/* cursor spotlight reveal */}
-      <RevealLayer image={REVEAL_IMAGE} active={true} />
-
-      {/* heading */}
-      <div className="absolute inset-0 z-50 flex flex-col items-center justify-start">
-        <h1 className="mt-[16vh] px-6 text-center sm:mt-[18vh]">
-          <span
-            className="hero-anim hero-reveal block font-playfair text-5xl font-normal leading-[0.95] text-white italic tracking-[-0.05em]"
-            style={{ animationDelay: '0.25s' }}
-          >
-            Discover India&apos;s
-          </span>
-          <span
-            className="hero-anim hero-reveal mt-3 block font-normal text-5xl leading-[0.95] text-white tracking-[-0.08em]"
-            style={{ animationDelay: '0.42s' }}
-          >
-            Living Heritage
-          </span>
-        </h1>
-      </div>
-
-      {/* bottom left copy */}
-      <div className="absolute bottom-14 left-10 z-50 hidden sm:block">
-        <p
-          className="hero-anim hero-fade max-w-[260px] text-sm leading-relaxed text-white/80"
-          style={{ animationDelay: '0.7s' }}
-        >
-          Every state holds a world of its own {'\u2014'} woven through ancient monuments, living
-          traditions, remarkable art, and stories passed across generations.
-        </p>
-      </div>
-
-      {/* bottom right copy */}
-      <div className="absolute bottom-10 left-5 right-5 z-50 sm:bottom-24 sm:left-auto sm:right-10 md:right-14">
-        <div className="flex flex-col items-start gap-4 sm:gap-5">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 pb-10 pt-28 sm:px-8 sm:pt-32">
+        <div className="max-w-2xl">
           <p
-            className="hero-anim hero-fade max-w-full text-sm leading-relaxed text-white/80 sm:max-w-[260px]"
-            style={{ animationDelay: '0.85s' }}
+            className="hero-anim hero-fade flex items-center gap-3 text-[15px] text-saffron-300"
+            style={{ animationDelay: '0.15s' }}
           >
-            Explore the places, people, and traditions that make India extraordinary. Let every
-            discovery inspire your next journey.
+            <span className="h-px w-10 bg-saffron-400" aria-hidden="true" />
+            An atlas of India you can walk through
           </p>
+
+          <h1 className="mt-6 font-display text-[clamp(3rem,8.5vw,6.75rem)] font-light leading-[0.92] tracking-[-0.035em] text-parchment-100">
+            <span className="hero-anim hero-reveal block" style={{ animationDelay: '0.3s' }}>
+              India,
+            </span>
+            <span
+              className="hero-anim hero-reveal block font-playfair text-saffron-400"
+              style={{ animationDelay: '0.45s' }}
+            >
+              one state
+            </span>
+            <span className="hero-anim hero-reveal block" style={{ animationDelay: '0.6s' }}>
+              at a time.
+            </span>
+          </h1>
+
+          <p
+            className="hero-anim hero-fade mt-8 max-w-[34rem] text-[17px] leading-relaxed text-parchment-200/75"
+            style={{ animationDelay: '0.8s' }}
+          >
+            Turn a 3D map of the whole country, open any state for its food, festivals and crafts,
+            step inside real 360° scenes, and ask Tara, a voice guide, anything along the way.
+          </p>
+
+          <div className="hero-anim hero-fade mt-10 flex flex-wrap gap-3" style={{ animationDelay: '0.95s' }}>
+            <Link to="/explore" className="btn-primary !px-7 !py-3.5 text-[15px]">
+              Open the atlas
+            </Link>
+            <Link to="/destinations" className="btn-ghost !px-7 !py-3.5 text-[15px] backdrop-blur-sm">
+              Browse destinations
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* CTA */}
-      <div className="absolute bottom-10 left-1/2 z-50 -translate-x-1/2 sm:bottom-12">
-        <Link
-          to="/explore"
-          className="bg-[#e8702a] hover:bg-[#d2611f] text-white text-sm font-medium px-7 py-3 rounded-full transition-all hover:scale-[1.03] active:scale-95 hover:shadow-lg hover:shadow-[#e8702a]/30"
-        >
-          Explore India
-        </Link>
+      <div className="hero-anim hero-fade relative border-t border-parchment-200/10" style={{ animationDelay: '1.1s' }}>
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-6 sm:flex-row sm:items-end sm:justify-between sm:px-8">
+          <dl className="grid grid-cols-3 gap-6 sm:gap-12">
+            {FACTS.map((f) => (
+              <div key={f.label}>
+                <dt className="sr-only">{f.label}</dt>
+                <dd className="font-display text-3xl font-light text-parchment-100 sm:text-4xl">{f.value}</dd>
+                <dd className="mt-1 max-w-[9rem] text-[12px] leading-snug text-parchment-200/55">{f.label}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="hidden max-w-[16rem] text-right text-[12px] leading-snug text-parchment-200/45 md:block">
+            Evening Ganga aarti, Varanasi. Photo by An4shubam, CC BY-SA 4.0.
+          </p>
+        </div>
       </div>
     </section>
   );

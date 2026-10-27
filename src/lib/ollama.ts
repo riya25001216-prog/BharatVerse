@@ -14,6 +14,9 @@ export interface OllamaStatus {
 }
 
 export async function checkOllama(): Promise<OllamaStatus> {
+  // Opt-in: probing localhost when Ollama isn't running logs a connection error
+  // in the browser console, so only probe when VITE_ENABLE_OLLAMA=true.
+  if (import.meta.env.VITE_ENABLE_OLLAMA !== 'true') return { available: false, models: [] };
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);

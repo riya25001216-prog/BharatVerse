@@ -1,22 +1,44 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Layout } from './components/Layout';
 import { HomePage } from './pages/HomePage';
 import { ExplorePage } from './pages/ExplorePage';
 import { StatePage } from './pages/StatePage';
 import { PanoramaPage } from './pages/PanoramaPage';
 import { GuidePage } from './pages/GuidePage';
 import { StoriesPage } from './pages/StoriesPage';
+import { DestinationsPage } from './pages/DestinationsPage';
+import { PlanPage } from './pages/PlanPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
-export default function AppRouter() {
-  const router = createBrowserRouter([
-    { path: '/', element: <HomePage /> },
-    { path: '/explore', element: <ExplorePage /> },
-    { path: '/state/:id', element: <StatePage /> },
-    { path: '/panorama/:slug', element: <PanoramaPage /> },
-    { path: '/guide', element: <GuidePage /> },
-    { path: '/stories', element: <StoriesPage /> },
-  ]);
+// Created once at module level so the router isn't rebuilt on every render.
+const router = createBrowserRouter(
+  [
+    {
+      element: <Layout />,
+      children: [
+        {
+          // Errors inside a page render here, keeping the navbar and footer around them.
+          errorElement: <NotFoundPage />,
+          children: [
+            { path: '/', element: <HomePage /> },
+            { path: '/explore', element: <ExplorePage /> },
+            { path: '/destinations', element: <DestinationsPage /> },
+            { path: '/state/:id', element: <StatePage /> },
+            { path: '/panorama/:slug', element: <PanoramaPage /> },
+            { path: '/guide', element: <GuidePage /> },
+            { path: '/stories', element: <StoriesPage /> },
+            { path: '/plan', element: <PlanPage /> },
+            { path: '*', element: <NotFoundPage /> },
+          ],
+        },
+      ],
+    },
+  ],
+  {
+    basename: import.meta.env.BASE_URL,
+  }
+);
 
-  return (
-    <RouterProvider router={router} />
-  );
+export default function App() {
+  return <RouterProvider router={router} />;
 }

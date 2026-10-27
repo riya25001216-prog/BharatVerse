@@ -119,14 +119,14 @@ export function CulturalDiscoveries({ onHear }: { onHear: (question: string) => 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/45 to-transparent" />
                 <div className="absolute inset-x-0 top-0 p-4">
-                  <span className="rounded-full border border-white/20 bg-ink-950/55 px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-white/75 backdrop-blur-md">
+                  <span className="rounded-full border border-parchment-200/20 bg-ink-950/55 px-2.5 py-1 text-[12px] text-parchment-200/75 backdrop-blur-md">
                     {d.category}
                   </span>
                 </div>
               </div>
               <div className="p-5">
-                <h3 className="font-display text-xl font-light leading-snug text-white">{d.title}</h3>
-                <p className="mt-2.5 text-[13px] leading-relaxed text-white/55">{d.blurb}</p>
+                <h3 className="font-display text-xl font-light leading-snug text-parchment-100">{d.title}</h3>
+                <p className="mt-2.5 text-[13px] leading-relaxed text-parchment-200/55">{d.blurb}</p>
               </div>
             </motion.button>
           ))}
@@ -159,7 +159,7 @@ export function CulturalDiscoveries({ onHear }: { onHear: (question: string) => 
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
                 <button
                   onClick={() => setOpenId(null)}
-                  className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-ink-950/60 text-white/80 backdrop-blur-md transition-colors hover:text-white"
+                  className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-parchment-200/20 bg-ink-950/60 text-parchment-200/80 backdrop-blur-md transition-colors hover:text-parchment-100"
                   aria-label="Close"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -167,16 +167,16 @@ export function CulturalDiscoveries({ onHear }: { onHear: (question: string) => 
                   </svg>
                 </button>
                 <div className="absolute inset-x-0 bottom-0 p-6">
-                  <div className="text-[10px] uppercase tracking-[0.2em] text-saffron-300/85">{open.category}</div>
-                  <h2 className="mt-2 font-display text-3xl font-light leading-tight text-white">{open.title}</h2>
+                  <div className="text-[12px] text-saffron-300/85">{open.category}</div>
+                  <h2 className="mt-2 font-display text-3xl font-light leading-tight text-parchment-100">{open.title}</h2>
                 </div>
               </div>
               <div className="p-6 sm:p-8">
-                <p className="text-[15px] italic leading-relaxed text-white/70">{open.blurb}</p>
+                <p className="text-[15px] italic leading-relaxed text-parchment-200/70">{open.blurb}</p>
                 <div className="divider-glow my-6" />
                 <div className="space-y-3">
                   {open.details.map((d) => (
-                    <p key={d} className="text-[14px] leading-relaxed text-white/72">{d}</p>
+                    <p key={d} className="text-[14px] leading-relaxed text-parchment-200/70">{d}</p>
                   ))}
                 </div>
                 <div className="mt-8 flex flex-wrap gap-2.5">
@@ -185,7 +185,7 @@ export function CulturalDiscoveries({ onHear }: { onHear: (question: string) => 
                       setOpenId(null);
                       onHear(open.guideQuestion);
                     }}
-                    className="sheen rounded-full bg-[linear-gradient(90deg,#ffc46b,#f98a09)] px-5 py-2.5 text-[13px] font-semibold text-ink-950 transition-transform hover:scale-[1.03]"
+                    className="sheen rounded-full bg-saffron-400 hover:bg-saffron-300 px-5 py-2.5 text-[13px] font-semibold text-ink-950 transition-transform hover:scale-[1.03]"
                   >
                     Hear it from the guide
                   </button>

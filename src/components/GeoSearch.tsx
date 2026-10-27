@@ -105,7 +105,7 @@ export function GeoSearch({ onOpenState }: Props) {
       <form onSubmit={submit} className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <svg
-            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/35"
+            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-parchment-200/50"
             width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
           >
             <circle cx="11" cy="11" r="7" />
@@ -115,14 +115,14 @@ export function GeoSearch({ onOpenState }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="State name, or exact coordinates — 12.9716, 77.5946"
-            className="w-full rounded-2xl border border-white/10 bg-white/[0.04] py-3 pl-10 pr-4 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-saffron-300/45 focus:bg-white/[0.06]"
+            className="w-full rounded-2xl border border-parchment-200/10 bg-white/[0.04] py-3 pl-10 pr-4 text-sm text-parchment-100 placeholder-parchment-200/40 outline-none transition-colors focus:border-saffron-300/45 focus:bg-white/[0.06]"
             aria-label="Search by name or exact coordinates"
           />
         </div>
         <button
           type="button"
           onClick={useMyLocation}
-          className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 px-4 py-3 text-[13px] font-medium text-white/80 transition-colors hover:border-white/35 hover:text-white"
+          className="inline-flex items-center justify-center gap-2 rounded-2xl border border-parchment-200/20 px-4 py-3 text-[13px] font-medium text-parchment-200/80 transition-colors hover:border-white/35 hover:text-parchment-100"
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
             <circle cx="12" cy="12" r="3" />
@@ -133,7 +133,7 @@ export function GeoSearch({ onOpenState }: Props) {
         </button>
         <button
           type="submit"
-          className="sheen rounded-2xl bg-[linear-gradient(90deg,#ffc46b,#f98a09)] px-6 py-3 text-[13px] font-semibold text-ink-950"
+          className="sheen rounded-2xl bg-saffron-400 hover:bg-saffron-300 px-6 py-3 text-[13px] font-semibold text-ink-950"
         >
           Locate
         </button>
@@ -162,16 +162,16 @@ export function GeoSearch({ onOpenState }: Props) {
           >
             <div>
               <div className="flex items-center gap-2">
-                <span className="rounded-full bg-saffron-300 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.16em] text-ink-950">
+                <span className="rounded-full bg-saffron-300 px-2 py-0.5 text-[12px] font-bold text-ink-950">
                   {result.kind === 'exact'
                     ? 'Exact location'
                     : result.kind === 'nearest'
                       ? 'Nearest'
                       : 'Match'}
                 </span>
-                <span className="text-[14px] font-semibold text-white">{result.title}</span>
+                <span className="text-[14px] font-semibold text-parchment-100">{result.title}</span>
               </div>
-              <p className="mt-1 text-[12.5px] leading-relaxed text-white/65">{result.detail}</p>
+              <p className="mt-1 text-[12.5px] leading-relaxed text-parchment-200/65">{result.detail}</p>
             </div>
             <button
               onClick={() => onOpenState(result.id)}

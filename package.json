@@ -4,13 +4,17 @@
   "version": "1.0.0",
   "type": "module",
   "description": "BharatVerse - a cinematic, liquid-glass journey across the 29 states of India",
+  "homepage": "https://riya25001216-prog.github.io/BharatVerse",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false"
+    "typecheck": "tsc -b --noEmit false --emitDeclarationOnly false",
+    "predeploy": "npm run build && node -e \"require('fs').copyFileSync('dist/index.html', 'dist/404.html')\"",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@elevenlabs/react": "^1.19.1",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
     "d3-geo": "^3.1.1",
@@ -29,6 +33,7 @@
     "@types/three": "^0.186.0",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.21",
+    "gh-pages": "^6.3.0",
     "polygon-clipping": "^0.15.7",
     "postcss": "^8.5.6",
     "puppeteer-core": "^25.15.0",

@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { AudioLines, Keyboard, SendHorizonal, X } from 'lucide-react';
 import { localReply, CHIPS_GENERAL } from '../lib/chatEngine';
 import { checkOllama, ollamaChat, OLLAMA_SYSTEM_PROMPT, type OllamaStatus } from '../lib/ollama';
 import { renderMarkdown } from '../lib/markdown';
 import { STATE_STORIES } from '../data/states';
 import type { ChatMessage } from '../data/types';
+
+// The voice SDK is only downloaded when someone opens the Talk tab.
+const VoiceAgent = lazy(() => import('./VoiceAgent').then((m) => ({ default: m.VoiceAgent })));
 
 let messageId = 0;
 const nextId = () => `m${messageId++}`;
@@ -12,7 +16,7 @@ const nextId = () => `m${messageId++}`;
 const GREETING: ChatMessage = {
   id: nextId(),
   role: 'bot',
-  text: `Namaste — I am the **BharatVerse guide**.\n\nI run entirely inside this page, so I work even when the network does not. Ask me about any state, its food, its festivals, or ask me to plan a route.`,
+  text: `Namaste, I’m **Tara**, your BharatVerse guide.\n\nAsk me about any state, its food or festivals, or ask me to plan a route. This typed chat works even offline.`,
   chips: ['Tell me about Kerala', 'Best time to visit India', 'Festivals in Assam', 'Plan me a 5-day trip'],
 };
 
@@ -23,15 +27,33 @@ const CONTEXT_BRIEF = STATE_STORIES.map(
       .join(', ')}; places: ${s.landmarks.map((l) => l.name).join(', ')}.`
 ).join('\n');
 
+type Tab = 'talk' | 'type';
+
+function Avatar({ size = 'h-7 w-7 text-[11px]' }: { size?: string }) {
+  return (
+    <span
+      className={`grid shrink-0 place-items-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#FBEBCB,#F2A93B_55%,#C9740E)] font-display font-semibold text-ink-950 ${size}`}
+      aria-hidden="true"
+    >
+      T
+    </span>
+  );
+}
+
 export function Chatbot({
   seed,
+  voiceNonce,
+  explainNonce,
   open,
   onOpenChange,
 }: {
   seed: { text: string; nonce: number } | null;
+  voiceNonce: number;
+  explainNonce: number;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const [tab, setTab] = useState<Tab>('talk');
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
@@ -41,12 +63,19 @@ export function Chatbot({
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    checkOllama().then(setOllama);
+    void checkOllama().then(setOllama);
   }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
-  }, [messages, typing]);
+  }, [messages, typing, tab]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onOpenChange(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open, onOpenChange]);
 
   const send = async (text: string) => {
     const trimmed = text.trim();
@@ -56,7 +85,6 @@ export function Chatbot({
     setTyping(true);
 
     const local = localReply(trimmed, {});
-
     let answer = local;
     if (useLocalLLM && ollama.available) {
       const history = messages.slice(-6).map((m) => ({
@@ -69,23 +97,14 @@ export function Chatbot({
         `${OLLAMA_SYSTEM_PROMPT}\n\nReference notes:\n${CONTEXT_BRIEF}`,
         ollama.models[0]
       );
-      if (reply) {
-        answer = { text: reply, chips: local.chips };
-      }
+      if (reply) answer = { text: reply, chips: local.chips };
     }
 
     setTimeout(
       () => {
         setMessages((m) => [
           ...m,
-          {
-            id: nextId(),
-            role: 'bot',
-            text: answer.text,
-            chips: answer.chips,
-            stateId: answer.stateId,
-            image: answer.image,
-          },
+          { id: nextId(), role: 'bot', text: answer.text, chips: answer.chips, stateId: answer.stateId, image: answer.image },
         ]);
         setTyping(false);
       },
@@ -93,16 +112,46 @@ export function Chatbot({
     );
   };
 
+  // "Ask Tara" buttons around the site send a typed question.
   useEffect(() => {
     if (seed && open) {
+      setTab('type');
       void send(seed.text);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seed?.nonce]);
 
   useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 250);
-  }, [open]);
+    if (voiceNonce) setTab('talk');
+  }, [voiceNonce]);
+
+  useEffect(() => {
+    if (open && tab === 'type') setTimeout(() => inputRef.current?.focus(), 250);
+  }, [open, tab]);
+
+  const tabBtn = (t: Tab, label: string, Icon: typeof AudioLines) => (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={tab === t}
+      onClick={() => setTab(t)}
+      className={`relative flex flex-1 items-center justify-center gap-2 rounded-full py-2 text-[13px] font-semibold transition-colors ${
+        tab === t ? 'text-ink-950' : 'text-parchment-200/70 hover:text-parchment-100'
+      }`}
+    >
+      {tab === t ? (
+        <motion.span
+          layoutId="guide-tab"
+          className="absolute inset-0 rounded-full bg-parchment-100"
+          transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+        />
+      ) : null}
+      <span className="relative flex items-center gap-2">
+        <Icon size={15} />
+        {label}
+      </span>
+    </button>
+  );
 
   return (
     <>
@@ -112,173 +161,156 @@ export function Chatbot({
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.2, type: 'spring', stiffness: 260, damping: 18 }}
         onClick={() => onOpenChange(!open)}
-        className="group fixed bottom-5 right-5 z-[70] flex h-14 items-center gap-2.5 rounded-full bg-[linear-gradient(120deg,#ffc46b,#f98a09)] px-4 shadow-[0_18px_50px_-12px_rgba(249,138,9,0.85)] transition-transform hover:scale-[1.04] sm:bottom-7 sm:right-7"
-        aria-label="Open the BharatVerse guide"
+        className="fixed bottom-5 right-5 z-[70] flex h-14 items-center gap-3 rounded-full border border-saffron-300/40 bg-ink-900/90 py-2 pl-2 pr-5 shadow-[0_18px_50px_-14px_rgba(242,169,59,0.6)] backdrop-blur-xl transition-colors hover:border-saffron-300/80 sm:bottom-7 sm:right-7"
+        aria-label={open ? 'Close the guide' : 'Talk to Tara, the BharatVerse guide'}
+        aria-expanded={open}
       >
-        <span className="relative grid h-9 w-9 place-items-center rounded-full bg-ink-950/85">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffc46b" strokeWidth="1.9">
-            <path
-              d="M12 3.2c-4 0-7.2 2.8-7.2 6.4 0 2.2 1.2 3.9 2.7 5.2.5.4.8 1 .8 1.6v.6c0 .5.4.9.9.9h.9c.4 0 .7-.3.8-.6l.3-1.1c.1-.4.5-.7.9-.7h3.8c.4 0 .8.3.9.7l.3 1.1c.1.4.4.6.8.6h.9c.5 0 .9-.4.9-.9v-.6c0-.6.3-1.2.8-1.6 1.5-1.3 2.7-3 2.7-5.2 0-3.6-3.2-6.4-7.2-6.4Z"
-              strokeLinejoin="round"
-            />
-            <circle cx="9" cy="10" r="1" fill="#ffc46b" stroke="none" />
-            <circle cx="15" cy="10" r="1" fill="#ffc46b" stroke="none" />
-          </svg>
-          <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full bg-emerald-400 ring-2 ring-ink-950" />
+        <span className="relative">
+          <Avatar size="h-10 w-10 text-base" />
+          <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full bg-peacock-400 ring-2 ring-ink-900" />
         </span>
-        <span className="hidden text-[13px] font-semibold text-ink-950 sm:block">Ask the guide</span>
+        <span className="text-left leading-tight">
+          <span className="block text-[14px] font-semibold text-parchment-100">Talk to Tara</span>
+          <span className="hidden text-[11.5px] text-parchment-200/60 sm:block">Voice or text guide</span>
+        </span>
       </motion.button>
 
-      {/* panel */}
       <AnimatePresence>
         {open && (
           <motion.div
+            role="dialog"
+            aria-label="Tara, the BharatVerse guide"
             initial={{ opacity: 0, y: 30, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="glass fixed bottom-[4.75rem] right-3 z-[69] flex h-[min(600px,calc(100vh-7.5rem))] w-[min(400px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[26px] shadow-glass-lg sm:bottom-[5.5rem] sm:right-5"
+            className="fixed bottom-[5.25rem] right-3 z-[69] flex h-[min(640px,calc(100svh-7rem))] w-[min(410px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[28px] border border-parchment-200/15 bg-ink-900/95 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)] backdrop-blur-2xl sm:bottom-[6rem] sm:right-7"
           >
-            {/* header */}
-            <div className="relative flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3.5">
-              <div className="flex items-center gap-2.5">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-[linear-gradient(120deg,#ffc46b,#f98a09)] font-display text-sm font-semibold text-ink-950">
-                  भ
-                </span>
+            <div className="flex items-center justify-between gap-3 px-4 pb-3 pt-4">
+              <div className="flex items-center gap-3">
+                <Avatar size="h-10 w-10 text-base" />
                 <div>
-                  <div className="text-[13.5px] font-semibold text-white">BharatVerse Guide</div>
-                  <div className="flex items-center gap-1.5 text-[10px] text-white/45">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    Runs locally
-                    {ollama.available ? (
-                      <span className="text-saffron-300/80">· {ollama.models[0] ?? 'local model'}</span>
-                    ) : null}
+                  <div className="font-display text-lg leading-tight text-parchment-100">Tara</div>
+                  <div className="text-[12px] text-parchment-200/55">
+                    {tab === 'talk' ? 'Voice guide by ElevenLabs' : ollama.available ? `Local model: ${ollama.models[0]}` : 'Works offline'}
                   </div>
                 </div>
               </div>
               <button
                 onClick={() => onOpenChange(false)}
-                className="grid h-8 w-8 place-items-center rounded-full text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+                className="grid h-9 w-9 place-items-center rounded-full text-parchment-200/60 transition-colors hover:bg-white/10 hover:text-parchment-100"
                 aria-label="Close guide"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
-                </svg>
+                <X size={18} />
               </button>
             </div>
 
-            {/* messages */}
-            <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
-              {messages.map((m) =>
-                m.role === 'user' ? (
-                  <motion.div
-                    key={m.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex justify-end"
-                  >
-                    <div className="max-w-[85%] rounded-2xl rounded-br-md bg-[linear-gradient(120deg,#ffc46b,#f98a09)] px-3.5 py-2.5 text-[13px] leading-relaxed text-ink-950">
-                      {m.text}
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key={m.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex gap-2.5"
-                  >
-                    <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/10 text-[11px] font-semibold text-saffron-300">
-                      भ
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      {m.image ? (
-                        <img
-                          src={`/images/${m.image}.jpg`}
-                          alt=""
-                          loading="lazy"
-                          className="mb-2 h-28 w-full max-w-[220px] rounded-xl object-cover"
-                        />
-                      ) : null}
-                      <div className="rounded-2xl rounded-tl-md border border-white/10 bg-white/[0.04] px-3.5 py-2.5">
-                        {renderMarkdown(m.text)}
+            <div className="mx-4 mb-1 flex rounded-full border border-parchment-200/15 p-1" role="tablist" aria-label="How to talk to Tara">
+              {tabBtn('talk', 'Talk', AudioLines)}
+              {tabBtn('type', 'Type', Keyboard)}
+            </div>
+
+            {tab === 'talk' ? (
+              <Suspense
+                fallback={<div className="grid flex-1 place-items-center text-sm text-parchment-200/60">Loading voice…</div>}
+              >
+                <VoiceAgent active={open && tab === 'talk'} explainNonce={explainNonce} />
+              </Suspense>
+            ) : (
+              <>
+                <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
+                  {messages.map((m) =>
+                    m.role === 'user' ? (
+                      <motion.div key={m.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex justify-end">
+                        <div className="max-w-[85%] rounded-2xl rounded-br-md bg-saffron-400 px-3.5 py-2.5 text-[13.5px] leading-relaxed text-ink-950">
+                          {m.text}
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div key={m.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-2.5">
+                        <Avatar />
+                        <div className="min-w-0 flex-1">
+                          {m.image ? (
+                            <img
+                              src={`/images/${m.image}.jpg`}
+                              alt=""
+                              loading="lazy"
+                              className="mb-2 h-28 w-full max-w-[220px] rounded-xl object-cover"
+                            />
+                          ) : null}
+                          <div className="rounded-2xl rounded-tl-md border border-parchment-200/10 bg-white/[0.04] px-3.5 py-2.5 text-parchment-100">
+                            {renderMarkdown(m.text)}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )
+                  )}
+
+                  {typing && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2.5" aria-label="Tara is typing">
+                      <Avatar />
+                      <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-md border border-parchment-200/10 bg-white/[0.04] px-4 py-3.5">
+                        {[0, 1, 2].map((i) => (
+                          <motion.span
+                            key={i}
+                            className="h-1.5 w-1.5 rounded-full bg-parchment-200/60"
+                            animate={{ opacity: [0.25, 1, 0.25], y: [0, -3, 0] }}
+                            transition={{ duration: 1.1, repeat: Infinity, delay: i * 0.15 }}
+                          />
+                        ))}
                       </div>
-                    </div>
-                  </motion.div>
-                )
-              )}
+                    </motion.div>
+                  )}
+                </div>
 
-              {typing && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-2.5">
-                  <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/10 text-[11px] font-semibold text-saffron-300">
-                    भ
-                  </span>
-                  <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-md border border-white/10 bg-white/[0.04] px-4 py-3.5">
-                    {[0, 1, 2].map((i) => (
-                      <motion.span
-                        key={i}
-                        className="h-1.5 w-1.5 rounded-full bg-white/50"
-                        animate={{ opacity: [0.25, 1, 0.25], y: [0, -3, 0] }}
-                        transition={{ duration: 1.1, repeat: Infinity, delay: i * 0.15 }}
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </div>
+                <div className="no-scrollbar flex gap-1.5 overflow-x-auto border-t border-parchment-200/10 px-3 py-2.5">
+                  {(messages[messages.length - 1]?.chips ?? CHIPS_GENERAL).map((chip) => (
+                    <button
+                      key={chip}
+                      onClick={() => void send(chip)}
+                      className="shrink-0 rounded-full border border-parchment-200/15 px-3 py-1.5 text-[12.5px] text-parchment-200/80 transition-colors hover:border-saffron-300/50 hover:text-parchment-100"
+                    >
+                      {chip}
+                    </button>
+                  ))}
+                </div>
 
-            {/* chips */}
-            <div className="no-scrollbar flex gap-1.5 overflow-x-auto border-t border-white/8 px-3 py-2.5">
-              {(messages[messages.length - 1]?.chips ?? CHIPS_GENERAL).map((chip) => (
-                <button
-                  key={chip}
-                  onClick={() => void send(chip)}
-                  className="chip shrink-0 border border-white/12 bg-white/[0.04] text-white/70 transition-colors hover:border-saffron-300/40 hover:text-white"
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    void send(input);
+                  }}
+                  className="flex items-center gap-2 border-t border-parchment-200/10 px-3 py-3"
                 >
-                  {chip}
-                </button>
-              ))}
-            </div>
+                  <input
+                    ref={inputRef}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Ask about any state…"
+                    className="flex-1 rounded-full border border-parchment-200/15 bg-white/[0.04] px-4 py-2.5 text-[14px] text-parchment-100 placeholder-parchment-200/40 outline-none transition-colors focus:border-saffron-400/60"
+                    aria-label="Message Tara"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!input.trim()}
+                    className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-saffron-400 text-ink-950 transition-colors enabled:hover:bg-saffron-300 disabled:opacity-40"
+                    aria-label="Send"
+                  >
+                    <SendHorizonal size={17} />
+                  </button>
+                </form>
 
-            {/* input */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                void send(input);
-              }}
-              className="flex items-center gap-2 border-t border-white/10 px-3 py-3"
-            >
-              <input
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about any state…"
-                className="flex-1 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-[13px] text-white placeholder-white/30 outline-none transition-colors focus:border-saffron-300/45"
-                aria-label="Message the guide"
-              />
-              <button
-                type="submit"
-                disabled={!input.trim()}
-                className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[linear-gradient(120deg,#ffc46b,#f98a09)] text-ink-950 transition-transform disabled:opacity-40 enabled:hover:scale-105"
-                aria-label="Send"
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 12 20 4l-6 16-2.5-6.5L4 12Z" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </form>
-
-            {ollama.available ? (
-              <button
-                onClick={() => setUseLocalLLM((v) => !v)}
-                className="flex items-center justify-center gap-2 border-t border-white/8 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-white/40 transition-colors hover:text-white/70"
-              >
-                <span
-                  className={`h-1.5 w-1.5 rounded-full ${useLocalLLM ? 'bg-emerald-400' : 'bg-white/25'}`}
-                />
-                {useLocalLLM ? 'Local model answering' : 'Built-in knowledge base answering'}
-              </button>
-            ) : null}
+                {ollama.available ? (
+                  <button
+                    onClick={() => setUseLocalLLM((v) => !v)}
+                    className="flex items-center justify-center gap-2 border-t border-parchment-200/10 px-3 py-2 text-[12px] text-parchment-200/55 transition-colors hover:text-parchment-100"
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${useLocalLLM ? 'bg-peacock-400' : 'bg-parchment-200/30'}`} />
+                    {useLocalLLM ? 'Local model answering' : 'Built-in knowledge answering'}
+                  </button>
+                ) : null}
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

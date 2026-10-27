@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Hero } from '../components/Hero';
 import { India3D } from '../components/India3D';
@@ -8,13 +8,23 @@ import { Guide3D } from '../components/Guide3D';
 import { Stories } from '../components/Stories';
 import { TripPlanner } from '../components/TripPlanner';
 import { STATE_STORIES, REGION_COLORS } from '../data/states';
-import { PANORAMA_PLACES } from '../data/panoramas';
+import { PANORAMA_BY_SLUG, PANORAMA_PLACES } from '../data/panoramas';
+import { useAsk } from '../lib/ask';
+import { MeetTara } from '../components/MeetTara';
 
-export function HomePage({ onAsk }: { onAsk?: (question: string) => void } = {}) {
-  const ask = onAsk ?? (() => {});
+export function HomePage() {
+  const ask = useAsk();
+  const navigate = useNavigate();
+  const featured = PANORAMA_BY_SLUG['gateway-of-india'];
+  const scenes = [...PANORAMA_PLACES]
+    .filter((p) => p.slug !== featured?.slug)
+    .sort((a, b) => Number(b.kind === 'sphere') - Number(a.kind === 'sphere'))
+    .slice(0, 12);
   return (
     <>
       <Hero />
+
+      <MeetTara />
 
       {/* 3D teaser / interactive map */}
       <section className="relative py-20 sm:py-28">
@@ -39,11 +49,11 @@ export function HomePage({ onAsk }: { onAsk?: (question: string) => void } = {})
                 fov={40}
                 elevation={50}
                 onSelect={(id) => {
-                  if (id) window.open('/state/' + id, '_blank');
+                  if (id) navigate('/state/' + id);
                 }}
               />
-              <div className="pointer-events-none absolute left-4 top-4 rounded-full border border-white/15 bg-ink-950/60 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-white/65 backdrop-blur-md">
-                Click a state to open its own page
+              <div className="pointer-events-none absolute left-4 top-4 rounded-full border border-parchment-200/15 bg-ink-950/70 px-3.5 py-1.5 text-[12px] text-parchment-200/80 backdrop-blur-md">
+                Drag to turn the map, click a state to open it
               </div>
             </div>
           </motion.div>
@@ -51,16 +61,72 @@ export function HomePage({ onAsk }: { onAsk?: (question: string) => void } = {})
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/explore"
-              className="sheen rounded-full bg-[linear-gradient(90deg,#ffc46b,#f98a09)] px-7 py-3.5 text-sm font-semibold text-ink-950"
+              className="btn-primary !px-7 !py-3.5"
             >
-              Open the atlas
+              Open the full atlas
             </Link>
             <Link
               to="/guide"
-              className="glass rounded-full px-7 py-3.5 text-sm font-semibold text-white/85 transition-colors hover:text-white"
+              className="btn-ghost !px-7 !py-3.5"
             >
               Watch the 3D guide
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 360 scenes: one large featured scene, then a strip */}
+      <section className="relative py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <SectionHeading
+            align="left"
+            kicker="Step inside"
+            title="Stand in the middle"
+            highlight="of the place"
+            description={`${PANORAMA_PLACES.filter((p) => p.kind === 'sphere').length} full 360° scenes you can turn all the way around in, plus wide views of the great monuments. Drag to look, scroll to zoom.`}
+          />
+          {featured ? (
+            <Link
+              to={'/panorama/' + featured.slug}
+              className="group relative mt-12 block overflow-hidden rounded-[28px] border border-parchment-200/10"
+            >
+              <img
+                src={'/panoramas/' + featured.slug + '.jpg'}
+                alt=""
+                loading="lazy"
+                className="h-[340px] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03] sm:h-[460px]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/30 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-4 p-6 sm:flex-row sm:items-end sm:justify-between sm:p-9">
+                <div>
+                  <div className="text-[14px] text-saffron-300">360° view · {featured.place}</div>
+                  <div className="mt-1 font-display text-4xl font-light text-parchment-100 sm:text-5xl">{featured.name}</div>
+                  <p className="mt-2 max-w-lg text-[15px] text-parchment-200/75">{featured.caption}</p>
+                </div>
+                <span className="btn-primary shrink-0 !px-7 !py-3.5">Step inside</span>
+              </div>
+            </Link>
+          ) : null}
+          <div className="no-scrollbar -mx-5 mt-5 flex snap-x gap-4 overflow-x-auto px-5 pb-4 sm:-mx-8 sm:px-8">
+            {scenes.map((p) => (
+              <Link
+                key={p.slug}
+                to={'/panorama/' + p.slug}
+                className="group relative w-[240px] shrink-0 snap-start overflow-hidden rounded-[20px] border border-parchment-200/10 transition-colors hover:border-saffron-400/50 sm:w-[270px]"
+              >
+                <img
+                  src={'/panoramas/' + p.slug + '.jpg'}
+                  alt=""
+                  loading="lazy"
+                  className="h-44 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <div className="text-[12px] text-saffron-300">{p.kind === 'sphere' ? '360° view' : 'Wide view'}</div>
+                  <div className="mt-0.5 font-display text-xl text-parchment-100">{p.name}</div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -77,7 +143,7 @@ export function HomePage({ onAsk }: { onAsk?: (question: string) => void } = {})
             description="A live 3D atlas with the route drawn across it, a marker that moves as the story plays, and a 360 scene waiting at every stop."
           />
           <div className="mt-12">
-            <Guide3D onOpenPanorama={(slug) => window.open('/panorama/' + slug, '_blank')} />
+            <Guide3D onOpenPanorama={(slug) => navigate('/panorama/' + slug)} />
           </div>
         </div>
       </section>
@@ -87,39 +153,6 @@ export function HomePage({ onAsk }: { onAsk?: (question: string) => void } = {})
       {/* plan your trip */}
       <TripPlanner />
 
-      {/* 360 panoramas teaser */}
-      <section className="relative py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <SectionHeading
-            kicker="Captured in 360"
-            title="Stand inside"
-            highlight="the place"
-            description={PANORAMA_PLACES.length + ' real panoramas of Indian monuments and landscapes, each one drag-to-look.'}
-          />
-          <div className="no-scrollbar mt-12 flex gap-4 overflow-x-auto pb-4">
-            {PANORAMA_PLACES.slice(0, 12).map((p) => (
-              <Link
-                key={p.slug}
-                to={'/panorama/' + p.slug}
-                className="group relative w-[260px] shrink-0 overflow-hidden rounded-3xl border border-white/10 transition-all hover:border-saffron-300/50 sm:w-[300px]"
-              >
-                <img
-                  src={'/panoramas/' + p.slug + '.jpg'}
-                  alt={p.name}
-                  loading="lazy"
-                  className="h-40 w-full object-cover transition-transform duration-[900ms] group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/45 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-4">
-                  <div className="text-[10px] uppercase tracking-[0.2em] text-saffron-300/85">{p.place}</div>
-                  <div className="mt-1 font-display text-lg font-light text-white">{p.name}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* states strip */}
       <section className="relative py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -128,18 +161,23 @@ export function HomePage({ onAsk }: { onAsk?: (question: string) => void } = {})
             title="Every state,"
             highlight="one story each"
           />
+          <div className="mt-6 flex justify-center">
+            <Link to="/destinations" className="btn-ghost">
+              See all with filters
+            </Link>
+          </div>
           <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {STATE_STORIES.map((s) => (
               <Link
                 key={s.id}
                 to={'/state/' + s.id}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 transition-all hover:border-white/30"
+                className="group relative overflow-hidden rounded-2xl border border-parchment-200/10 transition-colors hover:border-saffron-400/45"
               >
                 <img
                   src={'/images/' + s.image + '.jpg'}
                   alt={s.name}
                   loading="lazy"
-                  className="h-28 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="h-32 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/35 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 p-3">
@@ -147,7 +185,7 @@ export function HomePage({ onAsk }: { onAsk?: (question: string) => void } = {})
                     className="h-1.5 w-1.5 rounded-full"
                     style={{ background: REGION_COLORS[s.region] }}
                   />
-                  <span className="truncate text-[13px] font-medium text-white">{s.name}</span>
+                  <span className="truncate text-[14px] font-semibold text-parchment-100">{s.name}</span>
                 </div>
               </Link>
             ))}
