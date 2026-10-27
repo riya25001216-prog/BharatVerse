@@ -45,9 +45,9 @@ export function HomePage() {
             transition={{ duration: 0.8 }}
             className="glass relative mt-12 overflow-hidden rounded-[34px] p-3"
           >
-            <div className="relative h-[420px] overflow-hidden rounded-[26px] sm:h-[620px]">
+            <div className="relative h-[480px] w-full overflow-hidden rounded-[26px] sm:h-[640px]">
               <India3D
-                className="absolute inset-0"
+                className="h-full w-full"
                 fov={40}
                 elevation={50}
                 onSelect={(id) => {

@@ -103,6 +103,7 @@ export function Chatbot({
   const send = async (text: string) => {
     const trimmed = text.trim();
     if (!trimmed) return;
+    narrator.unlockAudio();
     setInput('');
     setMessages((m) => [...m, { id: nextId(), role: 'user', text: trimmed }]);
     setTyping(true);

@@ -3,6 +3,7 @@ import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Chatbot } from './Chatbot';
+import { FloatingAudioPlayer } from './FloatingAudioPlayer';
 import { Aurora } from './Atmosphere';
 import { GuideContext } from '../lib/ask';
 import { setLiveView } from '../lib/liveView';
@@ -63,6 +64,7 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <FloatingAudioPlayer />
       <Chatbot
         seed={seed}
         voiceNonce={voiceNonce}

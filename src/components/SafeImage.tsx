@@ -1,4 +1,4 @@
-import { useState, type ImgHTMLAttributes } from 'react';
+import { useState, useRef, useEffect, type ImgHTMLAttributes } from 'react';
 import { assetUrl } from '../lib/assets';
 import { Sparkles } from 'lucide-react';
 
@@ -13,13 +13,22 @@ export function SafeImage({
   className = '',
   fallbackText,
   fallbackCategory,
+  loading,
   ...props
 }: SafeImageProps) {
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   // Normalize src using assetUrl
   const resolvedSrc = src ? assetUrl(src) : '';
+
+  useEffect(() => {
+    setHasError(false);
+    if (imgRef.current && imgRef.current.complete && imgRef.current.naturalWidth > 0) {
+      setIsLoaded(true);
+    }
+  }, [resolvedSrc]);
 
   if (!resolvedSrc || hasError) {
     return (
@@ -49,16 +58,17 @@ export function SafeImage({
   return (
     <div className={`relative overflow-hidden ${className}`}>
       {!isLoaded && (
-        <div className="absolute inset-0 animate-pulse bg-white/[0.04]" />
+        <div className="absolute inset-0 animate-pulse bg-white/[0.05]" />
       )}
       <img
+        ref={imgRef}
         src={resolvedSrc}
         alt={alt}
-        loading="lazy"
+        loading={loading || 'eager'}
         onLoad={() => setIsLoaded(true)}
         onError={() => setHasError(true)}
-        className={`h-full w-full object-cover transition-opacity duration-500 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
+        className={`h-full w-full object-cover transition-opacity duration-300 ${
+          isLoaded ? 'opacity-100' : 'opacity-90'
         }`}
         {...props}
       />

@@ -1,0 +1,25 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Mic } from 'lucide-react';
+import { useGuide } from '../lib/ask';
+import { AnimeTara } from './AnimeTara';
+import { narrator } from '../lib/narrator';
+import { useLanguage } from '../lib/i18n';
+const PROMPTS = [
+    'What should I eat in Kolkata?',
+    'Plan me three days in Rajasthan',
+    'When is the Hornbill Festival?',
+    'Is October good for Ladakh?',
+];
+/** Home-page introduction to Tara, the multilingual anime virtual guide. */
+export function MeetTara() {
+    const { openVoice, ask } = useGuide();
+    const { language } = useLanguage();
+    const handleTalk = () => {
+        openVoice();
+        narrator.play("Namaste! I am Tara, your virtual cultural guide. How can I help you explore India today? Ask me about any state, delicious food, vibrant festivals, or hidden places.", language);
+    };
+    return (_jsx("section", { className: "relative overflow-hidden py-24 sm:py-32", "aria-labelledby": "meet-tara", children: _jsxs("div", { className: "mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.1fr_1fr]", children: [_jsxs("div", { children: [_jsxs("p", { className: "flex items-center gap-3 text-[14px] font-medium text-saffron-300", children: [_jsx("span", { className: "h-px w-8 bg-saffron-400/80", "aria-hidden": "true" }), "Your cultural companion"] }), _jsxs("h2", { id: "meet-tara", className: "mt-5 font-display text-4xl font-light leading-[1.05] tracking-[-0.025em] text-parchment-100 sm:text-5xl md:text-[3.5rem]", children: ["Meet ", _jsx("span", { className: "font-playfair text-saffron-400", children: "Tara" }), ", your virtual guide."] }), _jsx("p", { className: "mt-6 max-w-[34rem] text-[17px] leading-relaxed text-parchment-200/70", children: "Tara knows all 28 states and 8 union territories: traditional attire, signature cuisines, master handlooms, regional festivals, and hidden gems. Speak or type in 10 Indian languages." }), _jsxs("div", { className: "mt-9 flex flex-wrap items-center gap-3", children: [_jsxs("button", { type: "button", onClick: handleTalk, className: "btn-primary !px-7 !py-3.5 text-[15px]", children: [_jsx(Mic, { size: 18 }), "Start talking to Tara"] }), _jsx("span", { className: "text-[13px] text-parchment-200/50", children: "Supports 10 Indian languages via voice & text." })] })] }), _jsxs("div", { className: "relative mx-auto w-full max-w-md flex flex-col items-center", children: [_jsxs("div", { className: "relative aspect-square flex items-center justify-center", children: [_jsxs("svg", { viewBox: "0 0 400 400", className: "absolute inset-0 h-full w-full pointer-events-none", "aria-hidden": "true", children: [[190, 150, 112].map((r, i) => (_jsx("circle", { cx: "200", cy: "200", r: r, fill: "none", stroke: i === 1 ? '#F2A93B' : '#F3E9D6', strokeOpacity: i === 1 ? 0.35 : 0.12, strokeDasharray: i === 0 ? '2 10' : i === 1 ? '1 0' : '4 6' }, r))), Array.from({ length: 16 }).map((_, i) => {
+                                            const a = (i / 16) * Math.PI * 2;
+                                            return (_jsx("circle", { cx: 200 + Math.cos(a) * 150, cy: 200 + Math.sin(a) * 150, r: i % 2 ? 2 : 3.5, fill: i % 2 ? '#F3E9D6' : '#F2A93B', fillOpacity: i % 2 ? 0.35 : 0.8 }, i));
+                                        })] }), _jsx("button", { type: "button", onClick: handleTalk, className: "group relative z-10 p-6 rounded-full transition-transform duration-500 hover:scale-105 focus-visible:outline-offset-8", "aria-label": "Start talking to Tara", children: _jsx(AnimeTara, { size: "xl", state: "idle", showBadge: true }) })] }), _jsx("ul", { className: "mt-4 flex flex-wrap justify-center gap-2", "aria-label": "Things you can ask", children: PROMPTS.map((p) => (_jsx("li", { children: _jsxs("button", { type: "button", onClick: () => ask(p), className: "rounded-full border border-parchment-200/15 px-3.5 py-2 text-[13px] text-parchment-200/80 transition-colors hover:border-saffron-400/50 hover:text-parchment-100", children: ["\u201C", p, "\u201D"] }) }, p))) })] })] }) }));
+}

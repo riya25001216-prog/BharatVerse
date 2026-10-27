@@ -79,9 +79,9 @@ export function ExplorePage() {
         {/* 3D map + list */}
         <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)]">
           <div className="glass relative overflow-hidden rounded-[30px] p-3">
-            <div className="relative h-[420px] overflow-hidden rounded-[24px] sm:h-[640px]">
+            <div className="relative h-[480px] w-full overflow-hidden rounded-[24px] sm:h-[650px]">
               <India3D
-                className="absolute inset-0"
+                className="h-full w-full"
                 selectedId={focusId}
                 focusId={focusId}
                 onSelect={openState}

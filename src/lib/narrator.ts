@@ -44,6 +44,16 @@ class CulturalNarrator {
     }
   }
 
+  public unlockAudio() {
+    if (this.synth) {
+      try {
+        this.synth.resume();
+      } catch {
+        // Ignore audio resume errors
+      }
+    }
+  }
+
   public subscribe(listener: NarratorListener): () => void {
     this.listeners.add(listener);
     listener(this.state);

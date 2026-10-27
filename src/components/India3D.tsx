@@ -581,8 +581,11 @@ export function India3D({
     setIsRotating(false);
   };
 
+  const isAbsolute = className.includes('absolute');
+  const basePosition = isAbsolute ? '' : 'relative';
+
   return (
-    <div className={`relative ${className}`}>
+    <div className={`${basePosition} h-full w-full overflow-hidden ${className}`}>
       <Canvas
         shadows
         dpr={[1, 1.75]}
