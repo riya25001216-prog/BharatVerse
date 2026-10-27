@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
+import { Volume2 } from 'lucide-react';
 import { STATE_STORIES } from '../data/states';
 import { PANORAMA_PLACES } from '../data/panoramas';
 import { assetUrl } from '../lib/assets';
+import { narrator } from '../lib/narrator';
+import { useLanguage } from '../lib/i18n';
 
 const FACTS = [
   { value: String(STATE_STORIES.length), label: 'states and union territories' },
@@ -10,6 +13,15 @@ const FACTS = [
 ];
 
 export function Hero() {
+  const { language } = useLanguage();
+
+  const handleListenIntro = () => {
+    narrator.play(
+      "Namaste! Welcome to BharatVerse. I am Tara, your cultural virtual guide across the twenty-eight states and eight union territories of India. Turn our interactive 3D map, step inside real 360-degree scenes, and discover traditional attire, famous cuisine, master art forms, and hidden gems.",
+      language
+    );
+  };
+
   return (
     <section id="home" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink-950">
       {/* photograph: Ganga aarti, Varanasi */}
@@ -57,10 +69,18 @@ export function Hero() {
             step inside real 360° scenes, and ask Tara, a voice guide, anything along the way.
           </p>
 
-          <div className="hero-anim hero-fade mt-10 flex flex-wrap gap-3" style={{ animationDelay: '0.95s' }}>
+          <div className="hero-anim hero-fade mt-10 flex flex-wrap items-center gap-3" style={{ animationDelay: '0.95s' }}>
             <Link to="/explore" className="btn-primary !px-7 !py-3.5 text-[15px]">
               Open the atlas
             </Link>
+            <button
+              type="button"
+              onClick={handleListenIntro}
+              className="inline-flex items-center gap-2 rounded-full border border-saffron-400/50 bg-saffron-400/15 hover:bg-saffron-400/30 px-6 py-3.5 text-[15px] font-semibold text-saffron-300 backdrop-blur-md transition-all shadow-[0_0_25px_rgba(242,169,59,0.3)] hover:scale-105"
+            >
+              <Volume2 size={18} className="animate-pulse" />
+              <span>Listen to Tara</span>
+            </button>
             <Link to="/destinations" className="btn-ghost !px-7 !py-3.5 text-[15px] backdrop-blur-sm">
               Browse destinations
             </Link>

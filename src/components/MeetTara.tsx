@@ -1,6 +1,8 @@
 import { Mic } from 'lucide-react';
 import { useGuide } from '../lib/ask';
 import { AnimeTara } from './AnimeTara';
+import { narrator } from '../lib/narrator';
+import { useLanguage } from '../lib/i18n';
 
 const PROMPTS = [
   'What should I eat in Kolkata?',
@@ -12,6 +14,15 @@ const PROMPTS = [
 /** Home-page introduction to Tara, the multilingual anime virtual guide. */
 export function MeetTara() {
   const { openVoice, ask } = useGuide();
+  const { language } = useLanguage();
+
+  const handleTalk = () => {
+    openVoice();
+    narrator.play(
+      "Namaste! I am Tara, your virtual cultural guide. How can I help you explore India today? Ask me about any state, delicious food, vibrant festivals, or hidden places.",
+      language
+    );
+  };
 
   return (
     <section className="relative overflow-hidden py-24 sm:py-32" aria-labelledby="meet-tara">
@@ -31,7 +42,7 @@ export function MeetTara() {
             Tara knows all 28 states and 8 union territories: traditional attire, signature cuisines, master handlooms, regional festivals, and hidden gems. Speak or type in 10 Indian languages.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <button type="button" onClick={openVoice} className="btn-primary !px-7 !py-3.5 text-[15px]">
+            <button type="button" onClick={handleTalk} className="btn-primary !px-7 !py-3.5 text-[15px]">
               <Mic size={18} />
               Start talking to Tara
             </button>
@@ -73,7 +84,7 @@ export function MeetTara() {
             {/* Anime Tara interactive avatar button */}
             <button
               type="button"
-              onClick={openVoice}
+              onClick={handleTalk}
               className="group relative z-10 p-6 rounded-full transition-transform duration-500 hover:scale-105 focus-visible:outline-offset-8"
               aria-label="Start talking to Tara"
             >

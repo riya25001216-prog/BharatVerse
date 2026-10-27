@@ -18,6 +18,7 @@ class CulturalNarrator {
   private sentences: string[] = [];
   private currentSentenceIdx = 0;
   private currentLang: LanguageCode = 'en';
+  private keepAliveInterval: any = null;
 
   private state: NarratorState = {
     isPlaying: false,
@@ -31,6 +32,15 @@ class CulturalNarrator {
   constructor() {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       this.synth = window.speechSynthesis;
+      // Pre-warm voices
+      try {
+        this.synth.getVoices();
+        this.synth.onvoiceschanged = () => {
+          this.synth?.getVoices();
+        };
+      } catch {
+        // Ignore voice pre-warming errors
+      }
     }
   }
 
@@ -87,6 +97,15 @@ class CulturalNarrator {
     };
     this.notify();
 
+    // Chrome keep-alive timer to prevent speech cutoff
+    this.clearKeepAlive();
+    this.keepAliveInterval = setInterval(() => {
+      if (this.synth?.speaking && !this.state.isPaused) {
+        this.synth.pause();
+        this.synth.resume();
+      }
+    }, 9000);
+
     this.speakSentence(0);
   }
 
@@ -106,14 +125,20 @@ class CulturalNarrator {
     const speechCode = langInfo?.speechLang || 'en-IN';
     utterance.lang = speechCode;
 
-    // Attempt to select an authentic Indian accent voice if available
+    // Attempt to select an authentic Indian voice if available
     const voices = this.synth.getVoices();
-    const matchingVoice = voices.find(
-      (v) =>
-        v.lang === speechCode ||
-        v.lang.startsWith(this.currentLang) ||
-        (this.currentLang === 'en' && v.lang.includes('IN'))
-    );
+    let matchingVoice = voices.find((v) => v.lang === speechCode);
+    if (!matchingVoice) {
+      matchingVoice = voices.find((v) => v.lang.startsWith(this.currentLang));
+    }
+    if (!matchingVoice && this.currentLang === 'en') {
+      matchingVoice = voices.find((v) => v.lang.includes('IN') || v.name.includes('India'));
+    }
+    if (!matchingVoice && voices.length > 0) {
+      // Default to first available natural voice
+      matchingVoice = voices.find((v) => v.default) || voices[0];
+    }
+
     if (matchingVoice) {
       utterance.voice = matchingVoice;
     }
@@ -147,7 +172,13 @@ class CulturalNarrator {
       this.notify();
     };
 
-    this.synth.speak(utterance);
+    try {
+      this.synth.cancel();
+      this.synth.resume();
+      this.synth.speak(utterance);
+    } catch {
+      // Ignore speak invocation errors
+    }
   }
 
   public pause() {
@@ -166,9 +197,21 @@ class CulturalNarrator {
     }
   }
 
+  private clearKeepAlive() {
+    if (this.keepAliveInterval) {
+      clearInterval(this.keepAliveInterval);
+      this.keepAliveInterval = null;
+    }
+  }
+
   public stop() {
+    this.clearKeepAlive();
     if (this.synth) {
-      this.synth.cancel();
+      try {
+        this.synth.cancel();
+      } catch {
+        // Ignore cancel errors
+      }
     }
     this.currentUtterance = null;
     this.state = {
