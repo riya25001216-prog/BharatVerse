@@ -1,25 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/BharatVerse/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="BharatVerse — an interactive atlas of India's 28 states and 8 union territories: a 3D map, 360° panoramas, state stories, a virtual guide and an offline chatbot."
-    />
-    <meta name="theme-color" content="#0A0E1F" />
-    <title>BharatVerse — India, state by state</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <script type="module" crossorigin src="/BharatVerse/assets/index-X3jQ9dDF.js"></script>
-    <link rel="stylesheet" crossorigin href="/BharatVerse/assets/index-D0iSdCU0.css">
+    <meta charset="utf-8">
+    <title>BharatVerse Redirect</title>
+    <script>
+      var path = window.location.pathname;
+      var clean = path.replace(/^\/BharatVerse\/?/, '');
+      var target = '/BharatVerse/#' + (clean.startsWith('/') ? clean : '/' + clean) + window.location.search + window.location.hash;
+      window.location.replace(target);
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    Redirecting to BharatVerse...
   </body>
 </html>
