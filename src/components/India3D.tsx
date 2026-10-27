@@ -5,8 +5,11 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { geoConicEqualArea, geoStream } from 'd3-geo';
 import type { Feature } from 'geojson';
+import { Plus, Minus, RotateCw, RefreshCw } from 'lucide-react';
 import { COLLECTION } from '../lib/geo';
 import { STATE_BY_ID, REGION_COLORS } from '../data/states';
+import { SafeImage } from './SafeImage';
+import { imagePath } from '../lib/assets';
 
 /**
  * Conic equal-area projection, centred on 80°E — the standard way to draw
@@ -446,6 +449,7 @@ function Scene({
   fov,
   elevation,
   autoRotate,
+  onHoverChange,
 }: {
   selectedId: string | null;
   route?: string[];
@@ -454,8 +458,14 @@ function Scene({
   fov: number;
   elevation: number;
   autoRotate: boolean;
+  onHoverChange?: (id: string | null) => void;
 }) {
   const [hovered, setHovered] = useState<string | null>(null);
+
+  const handleHover = (id: string | null) => {
+    setHovered(id);
+    onHoverChange?.(id);
+  };
 
   const focus = useMemo(() => {
     const id = focusId ?? selectedId;
@@ -494,7 +504,7 @@ function Scene({
             hovered={hovered === s.id}
             selected={selectedId === s.id}
             dimmed={!!selectedId && selectedId !== s.id}
-            onHover={setHovered}
+            onHover={handleHover}
             onSelect={onSelect}
           />
         ))}
@@ -558,12 +568,25 @@ export function India3D({
   elevation = 52,
   autoRotate = false,
 }: India3DProps) {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [currentFov, setCurrentFov] = useState(fov);
+  const [isRotating, setIsRotating] = useState(autoRotate);
+
+  const hoveredState = hoveredId ? STATE_BY_ID[hoveredId] : null;
+
+  const zoomIn = () => setCurrentFov((f) => Math.max(20, f - 5));
+  const zoomOut = () => setCurrentFov((f) => Math.min(65, f + 5));
+  const resetView = () => {
+    setCurrentFov(fov);
+    setIsRotating(false);
+  };
+
   return (
-    <div className={className}>
+    <div className={`relative ${className}`}>
       <Canvas
         shadows
         dpr={[1, 1.75]}
-        camera={{ position: [0, 88, 68], fov }}
+        camera={{ position: [0, 88, 68], fov: currentFov }}
         gl={{ antialias: true, alpha: true }}
         onPointerMissed={() => onSelect?.('')}
       >
@@ -572,11 +595,86 @@ export function India3D({
           route={route}
           onSelect={onSelect ?? (() => {})}
           focusId={focusId}
-          fov={fov}
+          fov={currentFov}
           elevation={elevation}
-          autoRotate={autoRotate}
+          autoRotate={isRotating}
+          onHoverChange={setHoveredId}
         />
       </Canvas>
+
+      {/* On-screen 3D Map Controls */}
+      <div className="absolute right-4 top-4 z-20 flex flex-col gap-1.5">
+        <button
+          type="button"
+          onClick={zoomIn}
+          className="grid h-8 w-8 place-items-center rounded-lg border border-parchment-200/20 bg-ink-950/70 text-parchment-100 backdrop-blur-md transition-colors hover:border-saffron-400 hover:text-saffron-300"
+          aria-label="Zoom in"
+        >
+          <Plus size={15} />
+        </button>
+        <button
+          type="button"
+          onClick={zoomOut}
+          className="grid h-8 w-8 place-items-center rounded-lg border border-parchment-200/20 bg-ink-950/70 text-parchment-100 backdrop-blur-md transition-colors hover:border-saffron-400 hover:text-saffron-300"
+          aria-label="Zoom out"
+        >
+          <Minus size={15} />
+        </button>
+        <button
+          type="button"
+          onClick={() => setIsRotating((r) => !r)}
+          className={`grid h-8 w-8 place-items-center rounded-lg border border-parchment-200/20 bg-ink-950/70 backdrop-blur-md transition-colors ${
+            isRotating ? 'border-saffron-400 text-saffron-300' : 'text-parchment-100 hover:text-saffron-300'
+          }`}
+          aria-label={isRotating ? 'Stop orbit' : 'Orbit map'}
+        >
+          <RotateCw size={14} className={isRotating ? 'animate-spin' : ''} />
+        </button>
+        <button
+          type="button"
+          onClick={resetView}
+          className="grid h-8 w-8 place-items-center rounded-lg border border-parchment-200/20 bg-ink-950/70 text-parchment-100 backdrop-blur-md transition-colors hover:border-saffron-400 hover:text-saffron-300"
+          aria-label="Reset map angle"
+        >
+          <RefreshCw size={13} />
+        </button>
+      </div>
+
+      {/* Interactive State Hover Tooltip Preview Card */}
+      {hoveredState && (
+        <div
+          onClick={() => onSelect?.(hoveredState.id)}
+          className="pointer-events-auto absolute bottom-4 left-4 z-20 flex max-w-sm cursor-pointer items-center gap-3.5 rounded-2xl border border-saffron-400/40 bg-ink-950/90 p-2.5 shadow-2xl backdrop-blur-xl transition-all hover:scale-[1.02]"
+        >
+          <div className="relative h-14 w-16 shrink-0 overflow-hidden rounded-xl border border-white/10">
+            <SafeImage
+              src={imagePath(hoveredState.image)}
+              alt={hoveredState.name}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5">
+              <span
+                className="h-2 w-2 shrink-0 rounded-full"
+                style={{ background: REGION_COLORS[hoveredState.region] || '#F6C46F' }}
+              />
+              <span className="truncate text-xs font-semibold text-parchment-100">
+                {hoveredState.name}
+              </span>
+              <span className="rounded bg-white/10 px-1.5 py-0.2 text-[9px] text-parchment-200/60">
+                {hoveredState.type}
+              </span>
+            </div>
+            <div className="truncate text-[11px] text-parchment-200/60">
+              Capital: {hoveredState.capital}
+            </div>
+            <div className="text-[10px] text-saffron-400 font-medium">
+              Click to open dedicated detail page ↗
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

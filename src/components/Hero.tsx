@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { STATE_STORIES } from '../data/states';
 import { PANORAMA_PLACES } from '../data/panoramas';
+import { assetUrl } from '../lib/assets';
 
 const FACTS = [
   { value: String(STATE_STORIES.length), label: 'states and union territories' },
@@ -14,7 +15,7 @@ export function Hero() {
       {/* photograph: Ganga aarti, Varanasi */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/images/scene-varanasi.jpg"
+          src={assetUrl('images/scene-varanasi.jpg')}
           alt="A priest raises a flaming lamp during the evening Ganga aarti in Varanasi"
           className="hero-zoom h-full w-full object-cover object-[70%_center]"
           fetchPriority="high"

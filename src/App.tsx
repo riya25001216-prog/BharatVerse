@@ -9,6 +9,7 @@ import { StoriesPage } from './pages/StoriesPage';
 import { DestinationsPage } from './pages/DestinationsPage';
 import { PlanPage } from './pages/PlanPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { LanguageProvider } from './lib/i18n';
 
 // Created once at module level so the router isn't rebuilt on every render.
 const router = createBrowserRouter(
@@ -40,5 +41,9 @@ const router = createBrowserRouter(
 );
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <LanguageProvider>
+      <RouterProvider router={router} />
+    </LanguageProvider>
+  );
 }

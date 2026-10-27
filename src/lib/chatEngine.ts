@@ -1,6 +1,8 @@
 import { STATE_STORIES, STATE_BY_ID } from '../data/states';
 import { JOURNEYS } from '../data/journeys';
 import type { StateStory } from '../data/types';
+import type { LanguageCode } from './i18n';
+import { buildMultilingualStateResponse } from './multilingualReplies';
 
 export interface ChatReply {
   text: string;
@@ -131,7 +133,7 @@ const has = (text: string, ...words: string[]) => words.some((w) => text.include
 
 const fmt = (n: number) => n.toLocaleString('en-IN');
 
-const stateSummary = (s: StateStory): string => {
+export const stateSummary = (s: StateStory): string => {
   const top = s.festivals[0];
   return [
     `**${s.name}** — ${s.tagline}`,
@@ -149,7 +151,7 @@ const stateSummary = (s: StateStory): string => {
     .join('\n');
 };
 
-const stateFood = (s: StateStory): string =>
+export const stateFood = (s: StateStory): string =>
   [
     `**Eat this in ${s.name}**`,
     ``,
@@ -158,7 +160,7 @@ const stateFood = (s: StateStory): string =>
     `Pair it with ${s.artForms[0].toLowerCase()} in the background — ${s.name} is as much about its craft as its plate.`,
   ].join('\n');
 
-const stateFestivals = (s: StateStory): string =>
+export const stateFestivals = (s: StateStory): string =>
   [
     `**Festivals of ${s.name}**`,
     ``,
@@ -167,7 +169,7 @@ const stateFestivals = (s: StateStory): string =>
     `Best window for most of them: ${s.bestMonths}.`,
   ].join('\n');
 
-const statePlaces = (s: StateStory): string =>
+export const statePlaces = (s: StateStory): string =>
   [
     `**Landmarks in ${s.name}**`,
     ``,
@@ -384,7 +386,7 @@ const JOURNEY_WORDS = JOURNEYS.map((j) => j.name.toLowerCase());
  * Fully local, retrieval-based conversational engine.
  * No network calls — everything is answered from the bundled dataset.
  */
-export function localReply(input: string, context: ChatContext = {}): ChatReply {
+export function localReply(input: string, context: ChatContext = {}, lang: LanguageCode = 'en'): ChatReply {
   const text = input.trim();
   const lower = text.toLowerCase();
   const tokens = tokenize(text);
@@ -395,30 +397,33 @@ export function localReply(input: string, context: ChatContext = {}): ChatReply 
   }
 
   // greetings
-  if (tokens.some((t) => ['hi', 'hello', 'hey', 'namaste', 'hola', 'assalam'].includes(t)) && tokens.length <= 3) {
+  if (
+    tokens.some((t) => ['hi', 'hello', 'hey', 'namaste', 'hola', 'assalam', 'vanakkam', 'namaskara'].includes(t)) ||
+    has(lower, 'नमस्ते', 'नमस्कार', 'নমস্কার', 'வணக்கம்', 'నమస్కారం', 'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ')
+  ) {
     return {
-      text: `Namaste! I am the BharatVerse guide — I run entirely inside this page, with no internet connection.\n\nWhat would you like to explore?`,
+      text: `Namaste! I am Tara, your BharatVerse cultural guide. I run seamlessly across all pages.\n\nAsk me about any of the 28 states, 8 union territories, traditional attire, famous cuisine, arts, festivals, or hidden gems!`,
       chips: CHIPS_GENERAL,
     };
   }
 
-  if (has(lower, 'thank', 'thanks', 'shukriya')) {
-    return { text: 'Happy to help. Ask me about any state, festival, dish or route in India.', chips: CHIPS_GENERAL };
+  if (has(lower, 'thank', 'thanks', 'shukriya', 'dhanyawad', 'धन्यवाद')) {
+    return { text: 'Happy to help! Ask me about any state, festival, attire, dish or route across India.', chips: CHIPS_GENERAL };
   }
 
-  if (has(lower, 'bye', 'goodbye', 'see you')) {
-    return { text: 'Namaste again — safe travels, and do try the map above.', chips: CHIPS_GENERAL };
+  if (has(lower, 'bye', 'goodbye', 'see you', 'alvida')) {
+    return { text: 'Namaste! Safe travels and keep exploring the rich cultural heritage of Bharat.', chips: CHIPS_GENERAL };
   }
 
   // identity
-  if (has(lower, 'who are you', 'what are you', 'your name', 'about you', 'bharatverse')) {
+  if (has(lower, 'who are you', 'what are you', 'your name', 'about you', 'bharatverse', 'who is tara')) {
     return {
       text: [
-        '**BharatVerse** is a cinematic atlas of India — 28 states and 8 union territories, each with its own light.',
+        '**BharatVerse** is an interactive liquid-glass digital atlas of India — 28 states and 8 union territories, each with rich cultural pillars.',
         '',
-        'I am the guide that runs with it. Everything I answer comes from the dataset bundled into this page, so I work fully offline.',
+        'I am **Tara**, your cultural virtual guide. I can speak and understand queries in 10 Indian languages (English, Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, and Punjabi). Everything I share comes from verified cultural archives, working both offline and online.',
         '',
-        'You can also click any state on the map to open its story.',
+        'Click any state on the map or select a monument to explore in 360°.',
       ].join('\n'),
       chips: CHIPS_GENERAL,
     };
@@ -478,65 +483,82 @@ export function localReply(input: string, context: ChatContext = {}): ChatReply 
     };
   }
 
-  // state specific
+  // state specific queries (5 cultural pillars and travel)
   if (state) {
-    if (has(lower, 'food', 'eat', 'cuisine', 'dish', 'dishes', 'restaurant', 'veg', 'non veg')) {
-      return { text: stateFood(state), chips: chipsForState(state), stateId: state.id, image: state.image };
-    }
-    if (has(lower, 'festival', 'festivals', 'celebration', 'fair', 'mela', 'utsav', 'festival')) {
-      return { text: stateFestivals(state), chips: chipsForState(state), stateId: state.id, image: state.image };
-    }
-    if (has(lower, 'wildlife', 'animal', 'bird', 'tiger', 'sanctuary', 'national park', 'forest', 'nature')) {
-      return { text: stateWildlife(state), chips: chipsForState(state), stateId: state.id, image: state.image };
-    }
-    if (has(lower, 'best time', 'when to visit', 'season', 'weather', 'month', 'climate', 'when is best')) {
+    // 1. Traditional Attire
+    if (has(lower, 'attire', 'clothes', 'dress', 'saree', 'dhoti', 'wear', 'costume', 'कपड़ा', 'पोशाक', 'वेशभूषा', 'পোশাক', 'உடை', 'దుస్తులు')) {
       return {
-        text: [
-          `**Best time for ${state.name}** — ${state.bestMonths}.`,
-          '',
-          `• **Landmark** ${state.landmarks[0].name} — ${state.landmarks[0].note}`,
-          `• **Festival** ${state.festivals[0].name} (${state.festivals[0].when})`,
-          `• **Landscape** ${state.nature}`,
-          '',
-          `Local tip: ${state.guideTip}`,
-        ].join('\n'),
+        text: buildMultilingualStateResponse(state, lang, 'attire'),
         chips: chipsForState(state),
         stateId: state.id,
         image: state.image,
       };
     }
+
+    // 2. Famous Food
+    if (has(lower, 'food', 'eat', 'cuisine', 'dish', 'dishes', 'restaurant', 'veg', 'non veg', 'खाना', 'व्यंजन', 'খাবার', 'உணவு', 'వంటకాలు', 'खाद्य')) {
+      return {
+        text: buildMultilingualStateResponse(state, lang, 'food'),
+        chips: chipsForState(state),
+        stateId: state.id,
+        image: state.image,
+      };
+    }
+
+    // 3. Art and Craft
+    if (has(lower, 'craft', 'art', 'handloom', 'dance', 'music', 'painting', 'कला', 'हस्तशिल्प', 'কারুশিল্প', 'கைவினை', 'చేతిపనులు')) {
+      return {
+        text: buildMultilingualStateResponse(state, lang, 'craft'),
+        chips: chipsForState(state),
+        stateId: state.id,
+        image: state.image,
+      };
+    }
+
+    // 4. Traditions and Festivals
+    if (has(lower, 'festival', 'festivals', 'celebration', 'fair', 'mela', 'utsav', 'त्यौहार', 'उत्सव', 'पर्व', 'উৎসব', 'திருவிழா', 'పండుగ')) {
+      return {
+        text: buildMultilingualStateResponse(state, lang, 'festivals'),
+        chips: chipsForState(state),
+        stateId: state.id,
+        image: state.image,
+      };
+    }
+
+    // 5. Hidden Gem
+    if (has(lower, 'hidden gem', 'gem', 'secret', 'offbeat', 'unexplored', 'mystery', 'रहस्य', 'अन्वेषित', 'লুকানো রত্ন', 'பொக்கிஷம்')) {
+      return {
+        text: buildMultilingualStateResponse(state, lang, 'hiddenGem'),
+        chips: chipsForState(state),
+        stateId: state.id,
+        image: state.image,
+      };
+    }
+
+    // Wildlife
+    if (has(lower, 'wildlife', 'animal', 'bird', 'tiger', 'sanctuary', 'national park', 'forest', 'nature')) {
+      return { text: stateWildlife(state), chips: chipsForState(state), stateId: state.id, image: state.image };
+    }
+
+    // Travel / How to reach
     if (has(lower, 'how to reach', 'reach', 'transport', 'train', 'bus', 'flight', 'airport', 'travel to')) {
       return {
         text: [
           `**Reaching ${state.name}**`,
           '',
-          `• **By air** — ${state.capital} is the main gateway; ${state.name}'s rail and road network spreads from there.`,
-          `• **Best window** ${state.bestMonths}, when ${state.landmarks[0].name.toLowerCase()} is most comfortable to visit.`,
+          `• **Gateway** — ${state.capital} is the prime hub connecting flights and high-speed rail.`,
+          `• **Best window to travel** ${state.bestMonths}, when weather is ideal.`,
           '',
-          `Tip: ${state.guideTip}`,
+          `Local Tip: ${state.guideTip}`,
         ].join('\n'),
         chips: chipsForState(state),
         stateId: state.id,
       };
     }
-    if (has(lower, 'place', 'places', 'see', 'visit', 'attraction', 'monument', 'temple', 'where to go')) {
-      return { text: statePlaces(state), chips: chipsForState(state), stateId: state.id, image: state.image };
-    }
-    if (has(lower, 'culture', 'art', 'craft', 'dance', 'music', 'tradition')) {
-      return {
-        text: [
-          `**The art of ${state.name}**`,
-          '',
-          ...state.artForms.map((a) => `• ${a}`),
-          '',
-          `*${state.vibe}*`,
-        ].join('\n'),
-        chips: chipsForState(state),
-        stateId: state.id,
-      };
-    }
+
+    // Default state response (comprehensive 5 pillars)
     return {
-      text: stateSummary(state),
+      text: buildMultilingualStateResponse(state, lang),
       chips: chipsForState(state),
       stateId: state.id,
       image: state.image,

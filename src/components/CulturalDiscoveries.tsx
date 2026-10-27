@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SectionHeading } from './Atmosphere';
+import { SafeImage } from './SafeImage';
+import { imagePath } from '../lib/assets';
 
 export interface Discovery {
   id: string;
@@ -111,8 +113,8 @@ export function CulturalDiscoveries({ onHear }: { onHear: (question: string) => 
               className="glass card-hover group relative h-full overflow-hidden rounded-[26px] text-left"
             >
               <div className="relative h-52 overflow-hidden">
-                <img
-                  src={'/images/' + d.image + '.jpg'}
+                <SafeImage
+                  src={imagePath(d.image)}
                   alt={d.category}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-110"
@@ -151,8 +153,8 @@ export function CulturalDiscoveries({ onHear }: { onHear: (question: string) => 
               className="glass max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-[30px]"
             >
               <div className="relative h-56">
-                <img
-                  src={'/images/' + open.image + '.jpg'}
+                <SafeImage
+                  src={imagePath(open.image)}
                   alt={open.category}
                   className="h-full w-full object-cover"
                 />

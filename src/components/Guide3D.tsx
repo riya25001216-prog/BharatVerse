@@ -4,6 +4,8 @@ import { India3D } from './India3D';
 import { JOURNEYS } from '../data/journeys';
 import { panoramaForStop } from '../data/panoramas';
 import { STATE_BY_ID } from '../data/states';
+import { SafeImage } from './SafeImage';
+import { imagePath } from '../lib/assets';
 
 const AUTOPLAY_MS = 8000;
 
@@ -158,8 +160,8 @@ export function Guide3D({ onOpenPanorama }: { onOpenPanorama: (slug: string) => 
             transition={{ duration: 0.45 }}
           >
             <div className="relative overflow-hidden rounded-2xl">
-              <img
-                src={`/images/${stop.image}.jpg`}
+              <SafeImage
+                src={imagePath(stop.image)}
                 alt={stop.title}
                 className="h-44 w-full object-cover"
                 loading="lazy"

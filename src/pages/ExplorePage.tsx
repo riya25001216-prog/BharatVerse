@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { India3D } from '../components/India3D';
 import { GeoSearch } from '../components/GeoSearch';
 import { SectionHeading } from '../components/Atmosphere';
+import { SafeImage } from '../components/SafeImage';
+import { imagePath } from '../lib/assets';
 import { STATE_STORIES, REGIONS, REGION_COLORS, STATE_BY_ID } from '../data/states';
 
 export function ExplorePage() {
@@ -175,8 +177,8 @@ export function ExplorePage() {
                 className="group glass card-hover block overflow-hidden rounded-[24px]"
               >
                 <div className="relative h-40 overflow-hidden">
-                  <img
-                    src={`/images/${s.image}.jpg`}
+                  <SafeImage
+                    src={imagePath(s.image)}
                     alt={s.name}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-110"

@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { IndiaMap } from './IndiaMap';
 import { StateDetails } from './StateDetails';
 import { SectionHeading } from './Atmosphere';
+import { SafeImage } from './SafeImage';
+import { imagePath } from '../lib/assets';
 import { STATE_STORIES, REGIONS, REGION_COLORS, STATE_BY_ID } from '../data/states';
 import type { StateStory } from '../data/types';
 
@@ -144,8 +146,8 @@ export function Explore({ onAsk }: { onAsk: (question: string) => void }) {
                     : 'border-parchment-200/10 hover:border-white/30'
                 }`}
               >
-                <img
-                  src={`/images/${s.image}.jpg`}
+                <SafeImage
+                  src={imagePath(s.image)}
                   alt={s.name}
                   loading="lazy"
                   className="h-28 w-full object-cover transition-transform duration-700 group-hover:scale-110"

@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { SectionHeading } from './Atmosphere';
 import { JOURNEYS } from '../data/journeys';
 import { STATE_BY_ID } from '../data/states';
+import { SafeImage } from './SafeImage';
+import { imagePath } from '../lib/assets';
 
 const AUTOPLAY_MS = 7000;
 
@@ -69,8 +71,8 @@ export function VirtualGuide() {
                   : 'border-parchment-200/10 hover:border-white/25'
               }`}
             >
-              <img
-                src={`/images/${j.cover}.jpg`}
+              <SafeImage
+                src={imagePath(j.cover)}
                 alt={j.name}
                 loading="lazy"
                 className="h-36 w-full object-cover transition-transform duration-[900ms] group-hover:scale-110"
@@ -101,7 +103,7 @@ export function VirtualGuide() {
               <AnimatePresence mode="sync">
                 <motion.img
                   key={stop.image + stop.title}
-                  src={`/images/${stop.image}.jpg`}
+                  src={imagePath(stop.image)}
                   alt={stop.title}
                   initial={{ opacity: 0, scale: 1.08 }}
                   animate={{
@@ -318,8 +320,8 @@ export function VirtualGuide() {
                 className="flex items-center justify-between gap-3 rounded-2xl border border-parchment-200/10 bg-white/[0.03] px-4 py-3 transition-colors hover:border-saffron-300/30"
               >
                 <span className="flex items-center gap-3">
-                  <img
-                    src={`/images/${stopState.image}.jpg`}
+                  <SafeImage
+                    src={imagePath(stopState.image)}
                     alt=""
                     loading="lazy"
                     className="h-9 w-9 rounded-xl object-cover"

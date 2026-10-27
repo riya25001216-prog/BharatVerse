@@ -7,6 +7,8 @@ import { CulturalDiscoveries } from '../components/CulturalDiscoveries';
 import { Guide3D } from '../components/Guide3D';
 import { Stories } from '../components/Stories';
 import { TripPlanner } from '../components/TripPlanner';
+import { SafeImage } from '../components/SafeImage';
+import { imagePath, panoramaPath } from '../lib/assets';
 import { STATE_STORIES, REGION_COLORS } from '../data/states';
 import { PANORAMA_BY_SLUG, PANORAMA_PLACES } from '../data/panoramas';
 import { useAsk } from '../lib/ask';
@@ -90,8 +92,8 @@ export function HomePage() {
               to={'/panorama/' + featured.slug}
               className="group relative mt-12 block overflow-hidden rounded-[28px] border border-parchment-200/10"
             >
-              <img
-                src={'/panoramas/' + featured.slug + '.jpg'}
+              <SafeImage
+                src={panoramaPath(featured.slug)}
                 alt=""
                 loading="lazy"
                 className="h-[340px] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03] sm:h-[460px]"
@@ -114,8 +116,8 @@ export function HomePage() {
                 to={'/panorama/' + p.slug}
                 className="group relative w-[240px] shrink-0 snap-start overflow-hidden rounded-[20px] border border-parchment-200/10 transition-colors hover:border-saffron-400/50 sm:w-[270px]"
               >
-                <img
-                  src={'/panoramas/' + p.slug + '.jpg'}
+                <SafeImage
+                  src={panoramaPath(p.slug)}
                   alt=""
                   loading="lazy"
                   className="h-44 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
@@ -173,8 +175,8 @@ export function HomePage() {
                 to={'/state/' + s.id}
                 className="group relative overflow-hidden rounded-2xl border border-parchment-200/10 transition-colors hover:border-saffron-400/45"
               >
-                <img
-                  src={'/images/' + s.image + '.jpg'}
+                <SafeImage
+                  src={imagePath(s.image)}
                   alt={s.name}
                   loading="lazy"
                   className="h-32 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"

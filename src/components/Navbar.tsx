@@ -2,13 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const LINKS = [
-  { path: '/explore', label: 'Atlas' },
-  { path: '/destinations', label: 'Destinations' },
-  { path: '/stories', label: 'Stories' },
-  { path: '/guide', label: 'Virtual guide' },
-];
+import { LanguageSelector } from './LanguageSelector';
+import { useLanguage } from '../lib/i18n';
 
 function Mark() {
   // A stylised rangoli diamond — the brand mark.
@@ -25,6 +20,14 @@ export function Navbar() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
+
+  const links = [
+    { path: '/explore', label: t('atlas') },
+    { path: '/destinations', label: t('destinations') },
+    { path: '/stories', label: t('stories') },
+    { path: '/guide', label: t('guide') },
+  ];
 
   useEffect(() => setOpen(false), [location.pathname]);
 
@@ -61,7 +64,7 @@ export function Navbar() {
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
-          {LINKS.map((l) => (
+          {links.map((l) => (
             <li key={l.path}>
               <NavLink
                 to={l.path}
@@ -88,7 +91,8 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
+          <LanguageSelector />
           <Link to="/plan" className="btn-primary hidden !px-5 !py-2.5 md:inline-flex">
             Plan a trip
           </Link>
@@ -116,7 +120,7 @@ export function Navbar() {
             className="overflow-hidden border-t border-parchment-200/10 md:hidden"
           >
             <ul className="flex flex-col gap-1 px-5 py-4">
-              {[{ path: '/', label: 'Home' }, ...LINKS].map((l) => (
+              {[{ path: '/', label: 'Home' }, ...links].map((l) => (
                 <li key={l.path}>
                   <NavLink
                     to={l.path}

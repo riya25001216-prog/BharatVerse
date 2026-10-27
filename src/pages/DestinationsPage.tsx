@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { SectionHeading } from '../components/Atmosphere';
+import { SafeImage } from '../components/SafeImage';
+import { imagePath } from '../lib/assets';
 import { STATE_STORIES, REGIONS, REGION_COLORS } from '../data/states';
 
 export function DestinationsPage() {
@@ -89,8 +91,8 @@ export function DestinationsPage() {
                 className="group relative block overflow-hidden rounded-[22px] border border-parchment-200/10 bg-ink-800"
               >
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={`/images/${s.image}.jpg`}
+                  <SafeImage
+                    src={imagePath(s.image)}
                     alt=""
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"

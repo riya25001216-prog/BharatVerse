@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { SectionHeading } from './Atmosphere';
 import { CURATED_STORIES, MOODS } from '../data/curated';
 import { STATE_BY_ID } from '../data/states';
+import { SafeImage } from './SafeImage';
+import { imagePath } from '../lib/assets';
 
 export function Stories({ onAsk }: { onAsk: (question: string) => void }) {
   const [mood, setMood] = useState<string>('All');
@@ -58,8 +60,8 @@ export function Stories({ onAsk }: { onAsk: (question: string) => void }) {
                   className="glass card-hover group relative flex h-full flex-col overflow-hidden rounded-[26px] text-left"
                 >
                   <div className="relative h-44 overflow-hidden">
-                    <img
-                      src={`/images/${state?.image ?? 'india'}.jpg`}
+                    <SafeImage
+                      src={imagePath(state?.image ?? 'india')}
                       alt={story.title}
                       loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-110"
@@ -114,8 +116,8 @@ export function Stories({ onAsk }: { onAsk: (question: string) => void }) {
               className="glass max-h-[88vh] w-full max-w-3xl overflow-y-auto rounded-[30px]"
             >
               <div className="relative h-56 sm:h-72">
-                <img
-                  src={`/images/${openState.image}.jpg`}
+                <SafeImage
+                  src={imagePath(openState.image)}
                   alt=""
                   className="h-full w-full object-cover"
                 />

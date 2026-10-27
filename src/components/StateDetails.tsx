@@ -1,6 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { STATE_BY_ID } from '../data/states';
 import { JOURNEYS } from '../data/journeys';
+import { SafeImage } from './SafeImage';
+import { imagePath } from '../lib/assets';
 import type { StateStory } from '../data/types';
 
 function Row({ label, value }: { label: string; value: string }) {
@@ -53,8 +56,8 @@ export function StateDetails({
         >
           {/* banner */}
           <div className="relative h-52 overflow-hidden sm:h-60">
-            <img
-              src={`/images/${state.image}.jpg`}
+            <SafeImage
+              src={imagePath(state.image)}
               alt={state.name}
               className="h-full w-full object-cover"
               loading="lazy"
@@ -150,21 +153,27 @@ export function StateDetails({
             </div>
 
             <div className="flex flex-wrap gap-2.5">
-              <button
-                onClick={() => onAsk(`Tell me about ${state.name}`)}
+              <Link
+                to={`/state/${state.id}`}
                 className="sheen inline-flex items-center gap-2 rounded-full bg-saffron-400 hover:bg-saffron-300 px-5 py-2.5 text-[13px] font-semibold text-ink-950 transition-transform hover:scale-[1.03]"
               >
-                Ask the guide
+                Explore 5 Cultural Pillars ↗
+              </Link>
+              <button
+                onClick={() => onAsk(`Tell me about ${state.name}`)}
+                className="rounded-full border border-parchment-200/20 px-4 py-2 text-[13px] font-medium text-parchment-200/75 transition-colors hover:border-white/30 hover:text-parchment-100"
+              >
+                Ask Tara
               </button>
               <button
                 onClick={() => onAsk(`Food in ${state.name}`)}
-                className="rounded-full border border-parchment-200/20 px-5 py-2.5 text-[13px] font-medium text-parchment-200/75 transition-colors hover:border-white/30 hover:text-parchment-100"
+                className="rounded-full border border-parchment-200/20 px-4 py-2 text-[13px] font-medium text-parchment-200/75 transition-colors hover:border-white/30 hover:text-parchment-100"
               >
                 What to eat
               </button>
               <button
                 onClick={() => onAsk(`Festivals in ${state.name}`)}
-                className="rounded-full border border-parchment-200/20 px-5 py-2.5 text-[13px] font-medium text-parchment-200/75 transition-colors hover:border-white/30 hover:text-parchment-100"
+                className="rounded-full border border-parchment-200/20 px-4 py-2 text-[13px] font-medium text-parchment-200/75 transition-colors hover:border-white/30 hover:text-parchment-100"
               >
                 Festivals
               </button>

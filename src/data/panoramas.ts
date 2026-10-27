@@ -457,6 +457,58 @@ export const PANORAMA_PLACES: PanoramaPlace[] = [
       'One of the longest urban beaches in the world, running beside Fort St George, where the first English settlement in India was built in 1639.',
     facts: ['6 km of sand', 'Fort St George, 1639', 'The Madras filter coffee culture'],
   },
+  {
+    slug: 'cellular-jail',
+    name: 'Cellular Jail (Kala Pani)',
+    place: 'Port Blair, Andaman & Nicobar Islands',
+    stateId: 'andaman-and-nicobar-islands',
+    lat: 11.6738,
+    lng: 92.7473,
+    caption: 'The historic panopticon prison where India\'s freedom fighters were held in solitary exile.',
+    kind: 'photo',
+    story:
+      'Completed in 1906, Cellular Jail was engineered with seven radial wings extending from a central watchtower so that no prisoner could see or communicate with another.',
+    facts: ['7 radial wings with 696 solitary cells', 'National Memorial monument', 'Houses the eternal flame of freedom'],
+  },
+  {
+    slug: 'bengaluru-bellandur',
+    name: 'Bellandur Lake Horizon',
+    place: 'Bengaluru, Karnataka',
+    stateId: 'karnataka',
+    lat: 12.9352,
+    lng: 77.6698,
+    caption: 'A 360-degree panorama over the expansive lake basin from the Kempapura bridge.',
+    kind: 'sphere',
+    story:
+      'Spanning over 890 acres, Bellandur Lake is the largest water body in Bengaluru, forming a critical ecological drainage basin for the plateau.',
+    facts: ['Largest lake in Bengaluru', '360° panoramic horizon', 'Ecological wetland catchment'],
+  },
+  {
+    slug: 'ooty-ithalar',
+    name: 'Sunrise over Ithalar Valley',
+    place: 'Ooty, Nilgiris, Tamil Nadu',
+    stateId: 'tamil-nadu',
+    lat: 11.3324,
+    lng: 76.6853,
+    caption: 'A 360-degree aerial panorama over mist-filled tea slopes and Nilgiri pine ridges.',
+    kind: 'sphere',
+    story:
+      'Perched at over 2,200 meters in the Nilgiris (Blue Mountains), Ithalar village is surrounded by terraced organic tea gardens and Shola forest reserves.',
+    facts: ['Altitude over 2,200 m', 'Full 360° aerial sphere', 'Nilgiri biosphere tea slopes'],
+  },
+  {
+    slug: 'shore-temple',
+    name: 'Shore Temple, Mahabalipuram',
+    place: 'Mamallapuram, Tamil Nadu',
+    stateId: 'tamil-nadu',
+    lat: 12.6164,
+    lng: 80.1989,
+    caption: '8th-century Pallava structural stone temple overlooking the waves of the Bay of Bengal.',
+    kind: 'photo',
+    story:
+      'Built by Narasimhavarman II (Rajasimha) around 700 CE, the Shore Temple is one of the earliest structural stone temples of Southern India, having weathered coastal salt spray for over 1,300 years.',
+    facts: ['UNESCO World Heritage Site', 'Built from cut granite blocks', 'Surpassed the 2004 tsunami without structural collapse'],
+  },
 ];
 
 export const PANORAMA_BY_SLUG: Record<string, PanoramaPlace> = Object.fromEntries(
