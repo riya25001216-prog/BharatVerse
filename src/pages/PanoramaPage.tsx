@@ -56,12 +56,22 @@ export function PanoramaPage() {
 
   if (!place) {
     return (
-      <div className="mx-auto flex min-h-[80vh] max-w-2xl flex-col items-start justify-center px-6 pt-24">
-        <h1 className="font-display text-4xl font-light text-parchment-100">There’s no scene here yet.</h1>
-        <p className="mt-3 text-parchment-200/60">Pick another place from the list of scenes.</p>
-        <Link to="/explore" className="btn-primary mt-8">
-          Back to the atlas
-        </Link>
+      <div className="mx-auto flex min-h-[80vh] max-w-2xl flex-col items-center justify-center px-6 pt-24 text-center">
+        <div className="mb-4 grid h-16 w-16 place-items-center rounded-full bg-saffron-400/20 text-saffron-400 border border-saffron-400/30">
+          <Compass size={32} className="animate-spin" style={{ animationDuration: '8s' }} />
+        </div>
+        <h1 className="font-display text-4xl font-light text-parchment-100">Looking for a 360° Scene?</h1>
+        <p className="mt-3 text-parchment-200/70 max-w-md">
+          Explore all 38 supported historical monuments, sacred temples, and coastal fortresses across India.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Link to="/panoramas" className="btn-primary !px-7 !py-3.5 text-sm">
+            Browse All 38 360° Panoramas ↗
+          </Link>
+          <Link to="/" className="btn-ghost !px-6 !py-3.5 text-sm">
+            Back to Home
+          </Link>
+        </div>
       </div>
     );
   }
@@ -87,7 +97,7 @@ export function PanoramaPage() {
               <ChevronRight size={13} className="text-parchment-200/30" />
             </li>
             <li>
-              <Link to="/explore" className="hover:text-parchment-100 transition-colors">
+              <Link to="/panoramas" className="hover:text-parchment-100 transition-colors">
                 {t('panoramas')}
               </Link>
             </li>
@@ -111,9 +121,9 @@ export function PanoramaPage() {
       </nav>
 
       {/* 360° Hero Stage */}
-      <div className="relative h-[90svh] min-h-[540px]">
+      <div className="relative h-[88vh] min-h-[580px] w-full">
         <Panorama3D
-          className="absolute inset-0"
+          className="h-full w-full"
           url={panoramaPath(place.slug)}
           kind={place.kind}
           title={place.name}

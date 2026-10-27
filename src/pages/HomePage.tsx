@@ -130,6 +130,15 @@ export function HomePage() {
               </Link>
             ))}
           </div>
+
+          <div className="mt-8 flex justify-center">
+            <Link
+              to="/panoramas"
+              className="btn-primary !px-8 !py-3.5 text-sm shadow-[0_8px_30px_rgba(242,169,59,0.25)]"
+            >
+              Browse all 38 360° monument scenes ↗
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -191,6 +200,15 @@ export function HomePage() {
                 </div>
               </Link>
             ))}
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <Link
+              to="/destinations"
+              className="btn-primary !px-8 !py-3.5 text-sm shadow-[0_8px_30px_rgba(242,169,59,0.25)]"
+            >
+              Explore all 36 states and territories ↗
+            </Link>
           </div>
         </div>
       </section>

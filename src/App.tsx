@@ -4,6 +4,7 @@ import { HomePage } from './pages/HomePage';
 import { ExplorePage } from './pages/ExplorePage';
 import { StatePage } from './pages/StatePage';
 import { PanoramaPage } from './pages/PanoramaPage';
+import { PanoramasPage } from './pages/PanoramasPage';
 import { GuidePage } from './pages/GuidePage';
 import { StoriesPage } from './pages/StoriesPage';
 import { DestinationsPage } from './pages/DestinationsPage';
@@ -22,6 +23,9 @@ const router = createHashRouter([
           { path: '/', element: <HomePage /> },
           { path: '/explore', element: <ExplorePage /> },
           { path: '/destinations', element: <DestinationsPage /> },
+          { path: '/panoramas', element: <PanoramasPage /> },
+          { path: '/panorama', element: <PanoramasPage /> },
+          { path: '/360', element: <PanoramasPage /> },
           { path: '/state/:id', element: <StatePage /> },
           { path: '/panorama/:slug', element: <PanoramaPage /> },
           { path: '/guide', element: <GuidePage /> },

@@ -25,6 +25,7 @@ export function Navbar() {
   const links = [
     { path: '/explore', label: t('atlas') },
     { path: '/destinations', label: t('destinations') },
+    { path: '/panoramas', label: t('panoramas') },
     { path: '/stories', label: t('stories') },
     { path: '/guide', label: t('guide') },
   ];
